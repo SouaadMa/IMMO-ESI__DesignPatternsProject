@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="732.0" prefWidth="1335.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tpGUI.Control.Controller">
+   <children>
+      <VBox fx:id="vBox" layoutX="-3.0" prefHeight="732.0" prefWidth="286.0" style="-fx-background-color: #ff8811;">
+         <children>
+            <Pane fx:id="pane2" prefHeight="162.0" prefWidth="286.0">
+               <children>
+                  <Label layoutX="59.0" layoutY="52.0" prefHeight="19.0" prefWidth="6.0" text="I" textFill="#0a0a1e">
+                     <font>
+                        <Font name="Times New Roman Bold" size="50.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="77.0" layoutY="70.0" text="mmo" textFill="#0a0a1e">
+                     <font>
+                        <Font name="Times New Roman Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="141.0" layoutY="51.0" text="ESI" textFill="#0a0a1e">
+                     <font>
+                        <Font name="Times New Roman Bold" size="51.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="52.0" fitWidth="52.0" layoutX="85.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../house-xxl.png" />
+                     </image>
+                  </ImageView>
+                  <Line endX="104.0" endY="-1.52587890625E-5" layoutX="143.0" layoutY="137.0" startX="-102.0" startY="-1.52587890625E-5" stroke="#00000099" />
+               </children></Pane>
+            <Button fx:id="accueilButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" mnemonicParsing="false" onAction="#accueilClicked" prefHeight="63.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="   Accueil" textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../homepage.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <MenuButton fx:id="rechercheGenerale" graphicTextGap="6.0" mnemonicParsing="false" opacity="0.77" prefHeight="63.0" prefWidth="286.0" styleClass="MenuButton" stylesheets="@styleSheet.css" text="   Rechercher" textAlignment="JUSTIFY" textFill="#141414" wrapText="true">
+              <items>
+                <MenuItem id="adresse" fx:id="adresse" mnemonicParsing="false" onAction="#rechercher" text="  Par adresse               " />
+                <MenuItem fx:id="wilaya" mnemonicParsing="false" onAction="#rechercher" text="  Par wilaya               " />
+                  <MenuItem fx:id="superficie" mnemonicParsing="false" onAction="#rechercher" text="  Par superficie               " />
+                  <MenuItem fx:id="proprietaire" mnemonicParsing="false" onAction="#rechercher" text="  Par coordonnées d'un propriétaire          " />
+                  <MenuItem fx:id="prix" mnemonicParsing="false" onAction="#rechercher" text="  par prix" />
+                  <MenuItem fx:id="typeTrans" mnemonicParsing="false" onAction="#rechercher" text="  par type de transaction" />
+                  <MenuItem fx:id="typeBien" mnemonicParsing="false" onAction="#rechercher" text="  Par type de bien" />
+                  <MenuItem fx:id="date" mnemonicParsing="false" onAction="#rechercher" text="  par date" />
+                  <MenuItem fx:id="nbPieces" mnemonicParsing="false" onAction="#rechercher" text="  par nombre maximal des pièces" />
+              </items>
+               <font>
+                  <Font name="Arial Nova Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../38298.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+
+            </MenuButton>
+            <Button fx:id="plusOptionsButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" mnemonicParsing="false" onAction="#optionsClicked" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="   Plus d'options" textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../plus2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="ajouterBienButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" layoutX="10.0" layoutY="323.0" mnemonicParsing="false" onAction="#ajouterClicked" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="  Ajouter un bien " textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../plus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="envoyerMessagesButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" layoutX="10.0" layoutY="586.0" mnemonicParsing="false" onAction="#envoyerMessageClicked" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="  Envoyer un message " textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../add-message-1684991-1442468.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="quitterButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" mnemonicParsing="false" onAction="#quitterClicked" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="   Quitter" textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../quit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="archiveButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" mnemonicParsing="false" onAction="#archiveClicked" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="   Afficher les archives" textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP" visible="false">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../house-xxl.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="ajouterCritereButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" mnemonicParsing="false" onAction="#ajouterUnCritere" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="  Ajouter un critère" textFill="#141413ed" visible="false" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../plus2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="valideButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" mnemonicParsing="false" onAction="#validerClicked" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="  Valider" textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP" visible="false">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../circle-checkmark-512.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="afficherMessagesButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" layoutX="10.0" layoutY="544.0" mnemonicParsing="false" onAction="#afficheMessagesClicked" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="  Afficher les messages" textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP" visible="false">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../21-512.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="listeProprietaireButton" alignment="BASELINE_LEFT" graphicTextGap="6.0" layoutX="10.0" layoutY="420.0" mnemonicParsing="false" onAction="#archiveClicked" prefHeight="62.0" prefWidth="286.0" stylesheets="@styleSheet.css" text="  Liste des proprietaires" textAlignment="JUSTIFY" textFill="#141413ed" textOverrun="CLIP" visible="false">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="29.0" onDragDetected="#propClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../human+person+user+icon-1320196276306824343.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+      <Pane fx:id="pane" layoutX="282.0" layoutY="-4.0" prefHeight="739.0" prefWidth="1055.0" />
+      <Button fx:id="connexionButton" layoutX="1172.0" layoutY="14.0" mnemonicParsing="false" onAction="#connexionClicked" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: #ff8811;" text="Connexion">
+         <font>
+            <Font name="Century Gothic Bold" size="13.0" />
+         </font>
+         <effect>
+            <InnerShadow color="#b59c9c" height="4.04" radius="1.52" width="4.04" />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>

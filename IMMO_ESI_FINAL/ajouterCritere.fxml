@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="280.0" style="-fx-background-color: #ffe7a5;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tpGUI.Control.AjouterCritereController">
+   <children>
+      <MenuButton fx:id="addcritere" alignment="CENTER" layoutY="-3.0" mnemonicParsing="false" onAction="#rechercher" opacity="0.84" prefHeight="43.0" prefWidth="280.0" styleClass="button" stylesheets="@styleSheet.css" text="                  Critères" textAlignment="CENTER" textFill="#4d4949" wrapText="true">
+         <font>
+            <Font name="Arial Nova Bold" size="18.0" />
+         </font>
+         <items>
+            <MenuItem fx:id="wilaya" mnemonicParsing="false" onAction="#rechercher" text="  Par wilaya               " />
+            <MenuItem fx:id="superficie" mnemonicParsing="false" onAction="#rechercher" text="  Par superficie               " />
+            <MenuItem fx:id="prix" mnemonicParsing="false" onAction="#rechercher" text="  par prix" />
+            <MenuItem fx:id="typeTrans" mnemonicParsing="false" onAction="#rechercher" text="  par type de transaction" />
+            <MenuItem fx:id="date" mnemonicParsing="false" onAction="#rechercher" text="  par date" />
+         </items>
+      </MenuButton>
+   </children>
+</AnchorPane>
