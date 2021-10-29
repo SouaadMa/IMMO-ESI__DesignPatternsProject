@@ -95,7 +95,7 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 							if(Wilaya.getPrix(wilaya)<50000) prixbien+= prixbien*(0.02);
 							else prixbien+= prixbien*(0.025);
 						}
-						else { /*Supérieure à 150*/
+						else { /*Supï¿½rieure ï¿½ 150*/
 							if(Wilaya.getPrix(wilaya)<50000) prixbien+= prixbien*(0.03);
 							else prixbien+= prixbien*(0.035);
 						}
@@ -106,7 +106,7 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 		if(trans==TypeTrans.ECHANGE) {
 			this.visualiser();
 			boolean valide=false;
-			System.out.println("Dans quelle wilaya voulez vous faire l'échange? ");
+			System.out.println("Dans quelle wilaya voulez vous faire l'ï¿½change? ");
 			while(!valide) {
 				String s=sc.next();
 				try {
@@ -190,9 +190,9 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 					superficie=Double.parseDouble((String)valeur); 
 					break;
 				case 4:
-					System.out.println("Saisissez le nom du propriétaire.");
+					System.out.println("Saisissez le nom du propriï¿½taire.");
 		    		String nom = scanner.next();
-		    		System.out.println("Saisissez le prénom du propriétaire.");
+		    		System.out.println("Saisissez le prï¿½nom du propriï¿½taire.");
 		    		String prenom = scanner.next();
 		    		String esp=" ";
 		    		String nomprenom = nom.concat(esp.concat(prenom));
@@ -235,7 +235,7 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 							break;
 						case 12:
 							if(Integer.parseInt((String)valeur)<=0) throw new Exception();
-							((NonHabitable)this).nbFaçades = Integer.parseInt((String)valeur); 
+							((NonHabitable)this).nbFacades = Integer.parseInt((String)valeur);
 							break;
 						}
 					}
@@ -301,14 +301,14 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 				modif = true;
 			}
 			catch(ElementNonExistantException e) {
-				System.out.println("L'élement que vous avez choisi n'existe pas!");
+				System.out.println("L'ï¿½lement que vous avez choisi n'existe pas!");
 			}
 			catch(SuperficieHabitableTresGrandeException e) {
-				System.out.println("La superficie habitable ne doit pas dépasser la superficie totale.");
+				System.out.println("La superficie habitable ne doit pas dï¿½passer la superficie totale.");
 			}
 			catch (Exception e) {
 				//e.printStackTrace();
-				System.out.println("Votre entrée ne correspond pas au champ demandé." );
+				System.out.println("Votre entrï¿½e ne correspond pas au champ demandï¿½." );
 			}
 	    }
 		

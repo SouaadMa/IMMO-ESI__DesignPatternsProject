@@ -11,7 +11,7 @@ public class Agence implements Serializable
 	protected Set<Biens> biens=new TreeSet<Biens>();
 	protected List<Proprietaire> proprietaires=new ArrayList<Proprietaire>(); 
 	protected int nbProprietaires=0;
-	protected String[] criteres={ "adresse","wilaya souhaitee","superficie" , " coordonnees d'un proprietaire","prix" ,"type de transaction"  ,"date", "le type du bien" , "nombre maximal des pièces" };
+	protected String[] criteres={ "adresse","wilaya souhaitee","superficie" , " coordonnees d'un proprietaire","prix" ,"type de transaction"  ,"date", "le type du bien" , "nombre maximal des piï¿½ces" };
 	protected static int nbCriteres=9;
 	protected int[] numCriteres={1,2,3,4,5,6,7,8,9};
 	protected int nbNumCriteres=6;
@@ -60,7 +60,7 @@ public class Agence implements Serializable
 	public void consulterProp()
 	{
 		for(int i=0; i<nbProprietaires; i++) {
-			System.out.println("Propriétaire "+i+" ");
+			System.out.println("Propriï¿½taire "+i+" ");
 			proprietaires.get(i).afficher();
 		}
 	}
@@ -196,7 +196,7 @@ public class Agence implements Serializable
 	{
 		Biens bien=null;
 		Scanner sc = new Scanner(System.in);
-		boolean Cohérence=false;
+		boolean Coherence=false;
 		boolean neg=false, gar=false, pis=false, jar=false; int type=0;
 		int m=0, n=0, wi=0, d=0, nb1=0, nb2=0, nb3=0;  double sup=0, pr=0, suph=0; String nom="", st="", des="", adr=""; Xplexe x= Xplexe.SIMPLEXE;
 		TypeTrans tr=TypeTrans.ECHANGE; Proprietaire p=null;
@@ -205,7 +205,7 @@ public class Agence implements Serializable
 		SimpleDateFormat f = new SimpleDateFormat(format);
 
 
-		while(Cohérence==false)  {
+		while(Coherence==false)  {
 			try {
 
 				sc=new Scanner(System.in);
@@ -220,7 +220,7 @@ public class Agence implements Serializable
 						sup = sc.nextInt();
 						if(sup<0) throw new Exception();
 						else m=3;
-					case 3: System.out.print("Nature de la transaction  :\n*Tappez <1> pour location.\n*Tappez <2> pour vente.\n*Tappez <3> pour échange.");
+					case 3: System.out.print("Nature de la transaction  :\n*Tappez <1> pour location.\n*Tappez <2> pour vente.\n*Tappez <3> pour ï¿½change.");
 						int nature = sc.nextInt(); if(nature<1 || nature>3) throw new WrongChoiceException();
 					else m=4;
 						if(nature==1) { tr=TypeTrans.LOCATION ;}
@@ -230,11 +230,11 @@ public class Agence implements Serializable
 						pr = sc.nextInt();
 						if(pr<0) throw new Exception();
 						else m=5;
-					case 5: System.out.print("Saisissez <true> si le prix est négociable <false> sinon  :");
+					case 5: System.out.print("Saisissez <true> si le prix est nï¿½gociable <false> sinon  :");
 						neg = sc.nextBoolean(); m=6;
-					case 6:	System.out.println("Saisissez le nom du propriétaire.");
+					case 6:	System.out.println("Saisissez le nom du propriï¿½taire.");
 						nom = sc.next();
-						System.out.println("Saisissez le prénom du propriétaire.");
+						System.out.println("Saisissez le prï¿½nom du propriï¿½taire.");
 						String prenom = sc.next();
 						String esp=" ";
 						String nomprenom = nom.concat(esp.concat(prenom));
@@ -276,7 +276,7 @@ public class Agence implements Serializable
 								else n=6;
 							case 6:
 								bien = new Maison(adr, wi, sup, p, pr, neg, tr, des, f.format(date), "", nb2, false, nb1, gar, pis, jar, suph);
-								System.out.println("Votre Maison a été créé avec succés.");
+								System.out.println("Votre Maison a ï¿½tï¿½ crï¿½ï¿½ avec succï¿½s.");
 						}
 					}
 					else {
@@ -298,7 +298,7 @@ public class Agence implements Serializable
 									gar = sc.nextBoolean(); n=4;
 								case 4:
 									bien = new Appartement(adr, wi, sup, p, pr, neg, tr, des, f.format(date), "", nb3, false, nb1, x, gar);
-									System.out.println("Votre appartement a été créé avec succés. ");
+									System.out.println("Votre appartement a ï¿½tï¿½ crï¿½ï¿½ avec succï¿½s. ");
 							}
 						}
 						else { /*NonHabitable*/
@@ -307,30 +307,30 @@ public class Agence implements Serializable
 									System.out.print("Statut Juridique : ");
 									st = sc.next(); n=1;
 								case 1:
-									System.out.print("Nb Façades : ");
+									System.out.print("Nb Faï¿½ades : ");
 									nb2 = sc.nextInt(); n=2;
 								case 2:
 									bien = new NonHabitable(adr, wi, sup, p, pr, neg, tr, des, f.format(date), "", st, nb2);
-									System.out.println("Votre terrain a été créé avec succés. ");
+									System.out.println("Votre terrain a ï¿½tï¿½ crï¿½ï¿½ avec succï¿½s. ");
 							}
 						}
 					}
 						/**E**/
-						Cohérence = true;
+						Coherence = true;
 				}
 			}
 			catch(SuperficieHabitableTresGrandeException e) {
-				System.out.println("La superficie habitable ne doit pas dépasser la superficie totale.");
+				System.out.println("La superficie habitable ne doit pas dï¿½passer la superficie totale.");
 			}
 			catch(WrongChoiceException e) {
-				System.out.println("Vous avez entré un mauvais choix.");
+				System.out.println("Vous avez entrï¿½ un mauvais choix.");
 			}
 			catch(ElementNonExistantException e) {
-				System.out.println("L'élement que vous avez choisi n'existe pas.");
+				System.out.println("L'ï¿½lement que vous avez choisi n'existe pas.");
 			}
 			catch(Exception e )
 			{
-				System.out.println("Votre entrée a généré un problème.");
+				System.out.println("Votre entrï¿½e a gï¿½nï¿½rï¿½ un problï¿½me.");
 			}
 		}
 		//inserBien(bien);
@@ -343,7 +343,7 @@ public class Agence implements Serializable
 
 
 	public void valideBien(Biens b) {
-    	/*Suppression de la liste des biens à valider*/
+    	/*Suppression de la liste des biens ï¿½ valider*/
 		getBiensAValider().remove(b);
 		getBiens().add(b); b.coordonnees.ajouterBiens(b);
 		if(existeProprietaire(b.coordonnees)<0) proprietaires.add(b.coordonnees);

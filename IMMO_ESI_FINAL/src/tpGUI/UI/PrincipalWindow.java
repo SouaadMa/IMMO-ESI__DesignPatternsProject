@@ -20,7 +20,7 @@ public class PrincipalWindow extends Stage {
 		ObjectInputStream in;
 		Agence ImmoESI=null;
 		
-		
+		/*
 		try {
 			
 			in = new ObjectInputStream( new BufferedInputStream( new FileInputStream( new File("Sauvegarde.txt"))));
@@ -41,13 +41,13 @@ public class PrincipalWindow extends Stage {
 			e.printStackTrace();
 			}
 			
-			
+			*/
 			
 		if(ImmoESI == null) {
 			
 			ImmoESI = new Agence();
 		
-		Proprietaire Prop1 = new Proprietaire ("Benelhadj" , "Saadia" , "@esi.dz" , "Cité 05 Juillet" , "05" ) ;
+		Proprietaire Prop1 = new Proprietaire ("Benelhadj" , "Saadia" , "@esi.dz" , "Citï¿½ 05 Juillet" , "05" ) ;
 		ImmoESI.ajouterProprietaire(Prop1);
 		Proprietaire Prop2 = new Proprietaire ("Hamlaoui" , "Yasmine" , "@esi.dz" , "1er Novembre" , "06") ;
 		ImmoESI.ajouterProprietaire(Prop2);

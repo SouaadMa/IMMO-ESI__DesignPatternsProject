@@ -11,9 +11,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import tpGUI.Control.FirstWindowController;
 
+//Launch first page of app
 public class Main extends Application {
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{

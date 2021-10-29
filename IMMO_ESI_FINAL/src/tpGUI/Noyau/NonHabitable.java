@@ -4,13 +4,13 @@ package tpGUI.Noyau;
 public class NonHabitable extends Biens {
 	
 	protected String statutJuridique;
-	protected int nbFaçades;
+	protected int nbFacades;
 	
-	public NonHabitable(String adresse , int wilaya , double superficie , Proprietaire coordonnees , double prix , boolean negociable ,TypeTrans trans , String descriptif , String date , String photoURL ,String statutJurdique , int nbFaçades ){
+	public NonHabitable(String adresse , int wilaya , double superficie , Proprietaire coordonnees , double prix , boolean negociable ,TypeTrans trans , String descriptif , String date , String photoURL ,String statutJurdique , int nbFacades ){
  	 
 		super(adresse,wilaya,superficie,coordonnees,prix,negociable,trans,descriptif,date,photoURL);
 		this.statutJuridique=statutJurdique;
-		this.nbFaçades=nbFaçades;
+		this.nbFacades=nbFacades;
 		
 	}
 	
@@ -23,14 +23,14 @@ public class NonHabitable extends Biens {
 	public String visualiser() {
 		String s= super.visualiser();
 		
-		s=s+"\n11* Statut Juridique : "+statutJuridique+".\n12* Nbr de façades : "+nbFaçades+".";
+		s=s+"\n11* Statut Juridique : "+statutJuridique+".\n12* Nbr de faï¿½ades : "+nbFacades+".";
 		return s;
 	}
 	
 	public double calculerPrix() {
 		double prixbien;
 		prixbien=super.calculerPrix();
-		if(nbFaçades>1) prixbien += 0.005*nbFaçades*prix;
+		if(nbFacades>1) prixbien += 0.005*nbFacades*prix;
 		
 		return prixbien;
 	}
@@ -44,7 +44,7 @@ public class NonHabitable extends Biens {
 			else
 			{
 				if(i==10) valeur = statutJuridique;
-				else if(i==11) valeur = nbFaçades;
+				else if(i==11) valeur = nbFacades;
 				else valeur =super.recupererChamps(i);
 			}
 		}
