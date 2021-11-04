@@ -1,0 +1,20 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+
+
+.BUENEO {
+	-fx-background-color:  #FFF7CC;
+	-fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+	/*-fx-fitwidth: */
+}
+
+.button {
+	
+	-fx-background-color:#ff8811;
+	-fx-mark-color:#353534;
+
+	/*-fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );*/
+	
+	
+	
+}
