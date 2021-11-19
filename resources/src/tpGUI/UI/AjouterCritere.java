@@ -5,54 +5,41 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tpGUI.Control.AjouterCritereController;
-import tpGUI.Control.Controller;
-import tpGUI.Noyau.Agence;
-import tpGUI.Noyau.Biens;
+import tpGUI.Control.ajouterCritereOuAfficherController;
 
-import java.io.File;
 import java.net.URL;
-import java.util.Set;
 
 public class AjouterCritere extends Stage {
 
+    private ajouterCritereOuAfficherController previousController;
 
-    public AjouterCritere(Controller view, Set<Biens> ensembleBiens , Agence agence) {
+    public AjouterCritere(ajouterCritereOuAfficherController view) {
 
 
         this.setTitle("Ajouter un critere");
         this.setResizable(false);
         this.setMinHeight(50);
         this.setMinWidth(100);
-        FXMLLoader loader = new FXMLLoader();
+        previousController = view;
 
+        String pathToFXML = "/fxml/ajouterCritere.fxml";
 
         //loader.setLocation(getClass().getResource("ajouterCritere.fxml"));
-        Parent root;
 
         try {
-        	
-        	 URL url = new File("resources/fxml/ajouterCritere.fxml").toURI().toURL();
-       	  
-       	  System.out.println(url);
-         	
-   	      	root = FXMLLoader.load(url);
-   	      	
-   	      	
-   	      	loader.setRoot(root);
-   	      	
+
+            URL FXMLlocation = getClass().getResource(pathToFXML);
+            System.out.println(FXMLlocation);
+            FXMLLoader loader = new FXMLLoader(FXMLlocation);
+
+            Parent root = loader.load() ;
+
+            AjouterCritereController controller = loader.getController();
+
              
-             AjouterCritereController controller = new AjouterCritereController();
-             
-             
-             loader.setController(controller);
-             
-             controller.setInfo(this,view,ensembleBiens,agence);
+             controller.setInfo(this);
              Scene scene = new Scene(root);
              this.setScene(scene);
-             
-             
-            
-            
             
 
         } catch (Exception e) {
@@ -61,4 +48,15 @@ public class AjouterCritere extends Stage {
 
 
     }
+
+    public void quitAndSet() {
+        this.close();
+        previousController.setEnsembleBiens();
+    }
+
+    public void passEvent(String sourceid) {
+        previousController.fireNextEvent(sourceid);
+    }
+
+
 }
