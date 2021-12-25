@@ -5,19 +5,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tpGUI.Control.AjouterCritereController;
-import tpGUI.Control.Controller;
 import tpGUI.Control.ajouterCritereOuAfficherController;
-import tpGUI.Noyau.Agence;
-import tpGUI.Noyau.Biens;
 
-import java.io.File;
 import java.net.URL;
-import java.util.Set;
 
 public class AjouterCritere extends Stage {
 
-    ajouterCritereOuAfficherController previousController;
-    //Set<Biens> ensembleBiens;
+    private ajouterCritereOuAfficherController previousController;
 
     public AjouterCritere(ajouterCritereOuAfficherController view) {
 

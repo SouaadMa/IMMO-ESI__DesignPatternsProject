@@ -4,8 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class MainPage {
-	
-	
+
 	
 	static public void Erreur(String m) {    
 		 Alert alert = new Alert(AlertType. INFORMATION );    

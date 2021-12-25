@@ -12,20 +12,27 @@
     <orderEntry type="module-library">
       <library name="JavaFX">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../../Setups/openjfx-13.0.1_windows-x64_bin-sdk/javafx-sdk-13.0.1/lib" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../Setups/openjfx-13.0.1_windows-x64_bin-sdk/javafx-sdk-13.0.1/lib" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib/src/javafx.base" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib/src/javafx.controls" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib/src/javafx.fxml" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib/src/javafx.graphics" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib/src/javafx.media" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib/src/javafx.swing" />
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib/src/javafx.web" />
         </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/../../../Setups/openjfx-13.0.1_windows-x64_bin-sdk/javafx-sdk-13.0.1/lib" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/../../../Setups/openjfx-13.0.1_windows-x64_bin-sdk/javafx-sdk-13.0.1/lib" recursive="false" type="SOURCES" />
+        <jarDirectory url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/javafx-sdk-13.0.1/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../Setups/openjfx-13.0.1_windows-x64_bin-sdk/charm-glisten-6.0.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/javafx-sdk-13.0.1/charm-glisten-6.0.6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

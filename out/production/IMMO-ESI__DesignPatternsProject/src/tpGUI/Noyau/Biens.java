@@ -76,7 +76,6 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 		double prixbien=prix;
 
 		if(trans==TypeTrans.VENTE) {
-			System.out.println("hi");
 			prixbien = PriceManager.ajouterFraisVente(prixbien, Wilaya.getPrix(wilaya));
 		}
 		if(trans==TypeTrans.ECHANGE) {

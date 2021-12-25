@@ -3,12 +3,11 @@ package tpGUI.Noyau;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface PriceManager {
+public class PriceManager {
 
-    public static Map<Double, Map<Double, Double>> seuilsVente = initVente();
-    public static Map<Double, Map<Double, Double>> seuilsEchange = seuilsVente;
-    public static Map<Double, Map<Double, Double>> seuilsLocation = initLocation();
-
+    private static Map<Double, Map<Double, Double>> seuilsVente = initVente();
+    private static Map<Double, Map<Double, Double>> seuilsEchange = seuilsVente;
+    private static Map<Double, Map<Double, Double>> seuilsLocation = initLocation();
 
     static Map<Double, Map<Double, Double>> initVente() {
 
@@ -102,14 +101,14 @@ public interface PriceManager {
         double prix = prixinitial;
         double seuilsuperficie = 0, seuilprixMetreCarre = 0;
 
-        for (double seuil : seuilsVente.keySet()) {
+        for (double seuil : seuilsLocation.keySet()) {
             if (superficie > seuil) {
                 seuilsuperficie = seuil;
                 break;
             }
         }
 
-        Map<Double, Double> seuilPrixMetreMap = seuilsVente.get(seuilsuperficie);
+        Map<Double, Double> seuilPrixMetreMap = seuilsLocation.get(seuilsuperficie);
 
         for (double seuil : seuilPrixMetreMap.keySet()) {
             if (prixMetreCarre > seuil) {
