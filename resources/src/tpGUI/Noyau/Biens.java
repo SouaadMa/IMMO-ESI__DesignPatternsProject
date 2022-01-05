@@ -227,5 +227,9 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 		return prix;
 	}
 
+	public void setCoordonnees(Proprietaire coordonnees) {
+		this.coordonnees = coordonnees;
+	}
+
 	
 }
