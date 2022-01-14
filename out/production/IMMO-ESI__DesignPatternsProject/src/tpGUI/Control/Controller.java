@@ -654,7 +654,16 @@ public class Controller {
                 public void handle(ActionEvent actionEvent) {
 
                     vbox.getChildren().clear();
-                    new ModifBien(agence, modif.getId(), vbox);
+
+                    if((agence.getBien(Integer.parseInt(modif.getId())).recupererChamps(8)).equals("Maison")) {
+                        new ModifMaison(agence, modif.getId(), vbox);
+                    }
+                    else if((agence.getBien(Integer.parseInt(modif.getId())).recupererChamps(8)).equals("Appartement")) {
+                        new ModifAppartement(agence, modif.getId(), vbox);
+                    }
+                    else new ModifTerrain(agence, modif.getId(), vbox);
+
+
                     accueil=false;
 
 

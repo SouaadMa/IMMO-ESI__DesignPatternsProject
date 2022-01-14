@@ -32,7 +32,6 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 
 	public Biens(String adresse, int wilaya, double superficie, Proprietaire coordonnees, double prix,
 			boolean negociable, TypeTrans trans, String descriptif, String date, String photoURL)
-	
 	{
 		this.adresse = adresse;
 		this.wilaya = wilaya;
@@ -226,6 +225,10 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 	
 	public Double getPrix() {
 		return prix;
+	}
+
+	public void setCoordonnees(Proprietaire coordonnees) {
+		this.coordonnees = coordonnees;
 	}
 
 	
