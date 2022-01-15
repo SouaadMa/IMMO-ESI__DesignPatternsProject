@@ -34,7 +34,7 @@ public class PrincipalWindow extends Stage {
 
 		  controller.setStage(this);
 
-          controller.setInfo(CreationManager.getAgence());
+          controller.setInfo(Agence.getInstance());
 
 		  this.setTitle("Accueil");
           

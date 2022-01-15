@@ -25,6 +25,10 @@ public class Agence implements Serializable
 		return instance;
 	}
 
+	public static void setInstance(Agence inst) {
+		instance = inst;
+	}
+
 	public void ajouterProprietaire(Proprietaire P) {
 		proprietaires.add(P);
 		nbProprietaires ++;

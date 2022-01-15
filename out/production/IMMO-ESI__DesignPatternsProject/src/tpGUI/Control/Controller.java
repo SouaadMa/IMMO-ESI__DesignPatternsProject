@@ -38,7 +38,7 @@ public class Controller {
     private boolean valider = false;
     private boolean admin=false;
     private boolean bool = false;
-    private String tab[] = {"Adresse", "Wilaya souhaitee", "Superficie", "Coordonnees d'un proprietaire", "Prix", "Type de transaction", "Date", "Le type du bien", "Nombre maximal des pieces"};
+    private final String[] tab = {"Adresse", "Wilaya souhaitee", "Superficie", "Coordonnees d'un proprietaire", "Prix", "Type de transaction", "Date", "Le type du bien", "Nombre maximal des pieces"};
     private Set<Biens> ensembleBiens;
     private int i = 0;
     private boolean bool2=false;
@@ -649,56 +649,47 @@ public class Controller {
             Button modif=new Button("Modifier");
             modif.setId(((Integer)i).toString());
             modif.getStyleClass().add("buttons");
-            modif.setOnAction(new EventHandler<>(){
+            modif.setOnAction(actionEvent -> {
 
-                public void handle(ActionEvent actionEvent) {
+                vbox.getChildren().clear();
 
-                    vbox.getChildren().clear();
-
-                    if((agence.getBien(Integer.parseInt(modif.getId())).recupererChamps(8)).equals("Maison")) {
-                        new ModifMaison(agence, modif.getId(), vbox);
-                    }
-                    else if((agence.getBien(Integer.parseInt(modif.getId())).recupererChamps(8)).equals("Appartement")) {
-                        new ModifAppartement(agence, modif.getId(), vbox);
-                    }
-                    else new ModifTerrain(agence, modif.getId(), vbox);
-
-
-                    accueil=false;
-
-
+                if((agence.getBien(Integer.parseInt(modif.getId())).recupererChamps(8)).equals("Maison")) {
+                    new ModifMaison(agence, modif.getId(), vbox);
                 }
+                else if((agence.getBien(Integer.parseInt(modif.getId())).recupererChamps(8)).equals("Appartement")) {
+                    new ModifAppartement(agence, modif.getId(), vbox);
+                }
+                else new ModifTerrain(agence, modif.getId(), vbox);
+
+
+                accueil=false;
+
+
             });
 
             Button archiv=new Button("Archiver");
             archiv.setId(((Integer)i).toString());
             archiv.getStyleClass().add("buttons");
-            archiv.setOnAction(new EventHandler<>(){
+            archiv.setOnAction(actionEvent -> {
 
-                public void handle(ActionEvent actionEvent) {
-
-                    vbox.getChildren().clear();
-                    agence.archiverBiens(agence.getBien(Integer.parseInt(archiv.getId())));
-                    accueil=false;
-                    accueilClicked();
-                    optionsClicked();
-                }
+                vbox.getChildren().clear();
+                agence.archiverBiens(agence.getBien(Integer.parseInt(archiv.getId())));
+                accueil=false;
+                accueilClicked();
+                optionsClicked();
             });
 
             Button supprim=new Button("Supprimer");
             supprim.setPrefWidth(100);
             supprim.setId(((Integer)i).toString());
             supprim.getStyleClass().add("buttons");
-            supprim.setOnAction(new EventHandler<>(){
+            supprim.setOnAction(actionEvent -> {
 
-                public void handle(ActionEvent actionEvent) {
-
-                    vbox.getChildren().clear();
-                    agence.supprimerBiens(agence.getBien(Integer.parseInt(supprim.getId())));
-                    accueil=false;
-                    accueilClicked();
-                    optionsClicked();
-                }
+                vbox.getChildren().clear();
+                agence.supprimerBiens(agence.getBien(Integer.parseInt(supprim.getId())));
+                accueil=false;
+                accueilClicked();
+                optionsClicked();
             });
 
             VBox buttons = new VBox(modif, archiv, supprim);
@@ -739,30 +730,24 @@ public class Controller {
                     Button desarchiv=new Button("Desarchiver");
                     desarchiv.setId(((Integer)i).toString());
                     desarchiv.getStyleClass().add("buttons");
-                    desarchiv.setOnAction(new EventHandler<>(){
+                    desarchiv.setOnAction(actionEvent -> {
 
-                        public void handle(ActionEvent actionEvent) {
+                        vbox.getChildren().clear();
+                        agence.desarchiverBiens(agence.getBienArchive(Integer.parseInt(desarchiv.getId())));
+                        archive=false;
+                        archiveClicked();
 
-                            vbox.getChildren().clear();
-                            agence.desarchiverBiens(agence.getBienArchive(Integer.parseInt(desarchiv.getId())));
-                            archive=false;
-                            archiveClicked();
-
-                        }
                     });
 
                     Button supprim=new Button("Supprimer");
                     supprim.setId(((Integer)i).toString());
                     supprim.getStyleClass().add("buttons");
-                    supprim.setOnAction(new EventHandler<>(){
+                    supprim.setOnAction(actionEvent -> {
 
-                        public void handle(ActionEvent actionEvent) {
-
-                            vbox.getChildren().clear();
-                            agence.supprimerBiens(agence.getBienArchive(Integer.parseInt(supprim.getId())));
-                            archive=false;
-                            archiveClicked();
-                        }
+                        vbox.getChildren().clear();
+                        agence.supprimerBiens(agence.getBienArchive(Integer.parseInt(supprim.getId())));
+                        archive=false;
+                        archiveClicked();
                     });
 
                     VBox buttons = new VBox(desarchiv, supprim);
@@ -812,30 +797,24 @@ public class Controller {
                     Button valid=new Button("Valider");
                     valid.setId(((Integer)i).toString());
                     valid.getStyleClass().add("buttons");
-                    valid.setOnAction(new EventHandler<>(){
+                    valid.setOnAction(actionEvent -> {
 
-                        public void handle(ActionEvent actionEvent) {
+                        vbox.getChildren().clear();
+                        agence.valideBien(agence.getBienAValider(Integer.parseInt(valid.getId())));
+                        valider=false;
+                        validerClicked();
 
-                            vbox.getChildren().clear();
-                            agence.valideBien(agence.getBienAValider(Integer.parseInt(valid.getId())));
-                            valider=false;
-                            validerClicked();
-
-                        }
                     });
 
                     Button supprim=new Button("Supprimer");
                     supprim.setId(((Integer)i).toString());
                     supprim.getStyleClass().add("buttons");
-                    supprim.setOnAction(new EventHandler<>(){
+                    supprim.setOnAction(actionEvent -> {
 
-                        public void handle(ActionEvent actionEvent) {
-
-                            vbox.getChildren().clear();
-                            agence.getBiensAValider().remove(agence.getBienAValider(Integer.parseInt(supprim.getId())));
-                            valider=false;
-                            validerClicked();
-                        }
+                        vbox.getChildren().clear();
+                        agence.getBiensAValider().remove(agence.getBienAValider(Integer.parseInt(supprim.getId())));
+                        valider=false;
+                        validerClicked();
                     });
 
                     VBox buttons = new VBox(valid, supprim);
@@ -877,40 +856,37 @@ public class Controller {
             Button affichebiens=new Button("Afficher ses biens");
             affichebiens.setId(((Integer)i).toString());
             affichebiens.getStyleClass().add("buttons");
-            affichebiens.setOnAction(new EventHandler<>(){
+            affichebiens.setOnAction(actionEvent -> {
 
-                public void handle(ActionEvent actionEvent) {
+                VBox vb = new VBox();
 
-                    VBox vb = new VBox();
-
-                    ScrollPane sP = new ScrollPane(vb);
+                ScrollPane sP = new ScrollPane(vb);
 
 
-                    Scene fenetre = new Scene(sP);
+                Scene fenetre = new Scene(sP);
 
 
 
-                    Iterator<Biens> it= agence.getProprietaires().get(Integer.parseInt(affichebiens.getId())).getPossesions().iterator();
-                    Biens b;
+                Iterator<Biens> it1 = agence.getProprietaires().get(Integer.parseInt(affichebiens.getId())).getPossesions().iterator();
+                Biens b;
 
 
-                    while(it.hasNext()) {
-                        b = it.next();
+                while(it1.hasNext()) {
+                    b = it1.next();
 
-                        InfoBiens stage = new InfoBiens(b, fenetre, vb);
-                        stage.setScene(fenetre);
+                    InfoBiens stage1 = new InfoBiens(b, fenetre, vb);
+                    stage1.setScene(fenetre);
 
-                        if(!it.hasNext()) stage.show();
-
-                    }
-
-
-
-                    //valider=false;
-
-
+                    if(!it1.hasNext()) stage1.show();
 
                 }
+
+
+
+                //valider=false;
+
+
+
             });
 
             stage.getResultHBx().getChildren().add(affichebiens);
@@ -968,17 +944,14 @@ public class Controller {
             envoi.autosize();
             envoi.setId(((Integer)i).toString());
             envoi.getStyleClass().add("buttons");
-            envoi.setOnAction(new EventHandler<>(){
+            envoi.setOnAction(actionEvent -> {
 
-                public void handle(ActionEvent actionEvent) {
+                int idBien = Integer.parseInt(envoi.getId());
 
-                    int idBien = Integer.parseInt(envoi.getId());
+                new EnvoiMessage(agence.getBien(idBien).getMessages());
 
-                    new EnvoiMessage(agence.getBien(idBien).getMessages());
+                accueil=false;
 
-                    accueil=false;
-
-                }
             });
 
             ((HBox)current).getChildren().add(envoi);
@@ -1010,16 +983,13 @@ public class Controller {
             Button envoi = new Button("Afficher les messages");
             envoi.setId(((Integer) i).toString());
             envoi.getStyleClass().add("buttons");
-            envoi.setOnAction(new EventHandler<>() {
+            envoi.setOnAction(actionEvent -> {
 
-                public void handle(ActionEvent actionEvent) {
+                int idBien = Integer.parseInt(envoi.getId());
+                new AfficheMessages(agence.getBien(idBien).getMessages());
 
-                    int idBien = Integer.parseInt(envoi.getId());
-                    new AfficheMessages(agence.getBien(idBien).getMessages());
+                accueil = false;
 
-                    accueil = false;
-
-                }
             });
 
             ((HBox) current).getChildren().add(envoi);
