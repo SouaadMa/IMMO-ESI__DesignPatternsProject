@@ -34,6 +34,8 @@ public class AjoutBien extends Stage {
 
 	private String cheminVersPhoto;
 	private VBox biggestVBox;
+
+	private BuilderBiens builderBiens;
 	
 	public AjoutBien (VBox biggestVBox) {
 
@@ -382,12 +384,33 @@ public class AjoutBien extends Stage {
 					 
 					 try {
 					 
-					 Proprietaire p = CreationManager.createProprietaire(nom.getText() , prenom.getText() , adrem.getText() , adre.getText() , tel.getText());
+					 builderBiens = new BuilderMaison();
 
-					 Biens nouveauBien = CreationManager.createMaison(adr.getText(), Wilaya.getNumWilaya(cb.getValue()), Double.parseDouble(sup.getText()), p, Double.parseDouble(prix.getText()),
+					 builderBiens.buildProprietaire(nom.getText() , prenom.getText() , adrem.getText() , adre.getText() , tel.getText());
+
+					 builderBiens.instantiateProduct();
+					 builderBiens.setAddress(adr.getText());
+					 builderBiens.setWilaya(Wilaya.getNumWilaya(cb.getValue()));
+					 builderBiens.setSuperficie(Double.parseDouble(sup.getText()));
+
+					 builderBiens.setProprietaire();
+
+					 builderBiens.setPrix(Double.parseDouble(prix.getText()), nego.isSelected());
+					 builderBiens.setTypeTrans(trans);
+					 builderBiens.setDescription(des.getText());
+					 builderBiens.setDate(f.format(date));
+					 builderBiens.setPhotoURL(cheminVersPhoto);
+					 ((BuilderMaison) builderBiens).setMeuble(meuble.isSelected());
+					 ((BuilderMaison) builderBiens).setNbPiecesNbEtages(Integer.parseInt(nb2.getText()), Integer.parseInt(nb1.getText()));
+					 ((BuilderMaison) builderBiens).setGaragePiscineJardin(garage.isSelected(), piscine.isSelected(), jardin.isSelected());
+					 ((BuilderMaison) builderBiens).setSuperfHabitable(Double.parseDouble(nb3.getText()));
+
+					 builderBiens.saveNouveauBien();
+
+					 /*Biens nouveauBien = CreationManager.createMaison(adr.getText(), Wilaya.getNumWilaya(cb.getValue()), Double.parseDouble(sup.getText()), p, Double.parseDouble(prix.getText()),
 							 nego.isSelected(), trans, des.getText(), f.format(date), cheminVersPhoto,
 							 Integer.parseInt(nb2.getText()), meuble.isSelected(), Integer.parseInt(nb1.getText()), garage.isSelected(), piscine.isSelected(),
-							 jardin.isSelected(), Double.parseDouble(nb3.getText()), true);
+							 jardin.isSelected(), Double.parseDouble(nb3.getText()), true);*/
 
 					 System.out.println(cb.getValue());
 
@@ -399,15 +422,13 @@ public class AjoutBien extends Stage {
 					 
 					 Scene scene = new Scene(ap);
 					 
-					 InfoBiens stage = new InfoBiens(nouveauBien, scene, vb);
+					 InfoBiens stage = new InfoBiens(builderBiens.getNouveauBien(), scene, vb);
 					 
 					 stage.setScene(scene);
 					 stage.show();
 
 					 }
-					 catch(SuperficieHabitableTresGrandeException e) {
-						 MainPage.CustomErreur("La superficie habitable ne peut pas dépasser la superficie totale.");
-					 }
+
 					 catch(Exception e) {
 						 MainPage.EmptyField("");
 					 }

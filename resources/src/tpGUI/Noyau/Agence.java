@@ -7,7 +7,8 @@ import java.text.*;
 
 public class Agence implements Serializable
 {
-	
+	private static Agence instance = null;
+
 	private Set<Biens> biens=new TreeSet<Biens>();
 	private List<Proprietaire> proprietaires=new ArrayList<Proprietaire>();
 	private int nbProprietaires=0;
@@ -16,7 +17,13 @@ public class Agence implements Serializable
 	private Set<Biens> biensArchives=new TreeSet<Biens>();
 	private Set<Biens> biensAValider = new TreeSet<Biens>();
 	private int nbBiensAValider=0;
-	
+
+	private Agence() {}
+
+	public static Agence getInstance() {
+		if(instance==null) instance = new Agence();
+		return instance;
+	}
 
 	public void ajouterProprietaire(Proprietaire P) {
 		proprietaires.add(P);

@@ -9,7 +9,7 @@ public class CreationManager {
     public static void deserializeAgence() {
 
         Agence ImmoESI = null;
-        ObjectInputStream in = null;
+        ObjectInputStream in ;
 
         try {
 
@@ -40,7 +40,7 @@ public class CreationManager {
 
         if(ImmoESI == null) {
 
-            ImmoESI = new Agence();
+            ImmoESI = Agence.getInstance();
 
                      Proprietaire Prop1 = new Proprietaire ("Benelhadj" , "Saadia" , "@esi.dz" , "Cité 05 Juillet" , "05" ) ;
                      ImmoESI.ajouterProprietaire(Prop1);

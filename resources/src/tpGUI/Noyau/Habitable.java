@@ -4,6 +4,8 @@ public abstract class Habitable extends Biens{
 
 		protected int nbPieces ;
 	    protected boolean meuble;
+
+		public Habitable() {}
 	    
 	    public Habitable(String adresse , int wilaya , double superficie , Proprietaire coordonnees , double prix , boolean negociable ,TypeTrans trans , String descriptif , String date , String photoURL ,int nbPieces , boolean meuble )
 	    {

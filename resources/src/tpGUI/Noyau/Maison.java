@@ -13,6 +13,8 @@ public class Maison extends Habitable{
 	private boolean piscine;
 	private boolean jardin;
 	private double superficiehabitable;
+
+	public Maison() {}
 	
 	public Maison(String adresse, int wilaya, double superficie, Proprietaire coordonnees, double prix,
 			boolean negociable, TypeTrans trans, String descriptif, String date, String photoURL,
@@ -123,6 +125,19 @@ public class Maison extends Habitable{
     	
     	}
     }
+
+	public void setNbEtages(int nbEtages) {
+		this.nbEtages = nbEtages;
+	}
+	public void setGaragePiscineJardin(boolean g, boolean p, boolean j) {
+		this.garage = g;
+		this.piscine = p;
+		this.jardin = j;
+	}
+	public void setSuperficiehabitable(Double superficiehabitable) {
+		this.superficiehabitable = superficiehabitable;
+	}
+
 	
 	
 }
