@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class PriceManager {
 
-    
-
     private static Map<Double, Map<Double, Double>> seuilsVente = initVente();
     private static Map<Double, Map<Double, Double>> seuilsEchange = seuilsVente;
     private static Map<Double, Map<Double, Double>> seuilsLocation = initLocation();

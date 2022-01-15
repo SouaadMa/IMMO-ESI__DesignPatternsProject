@@ -4,7 +4,6 @@ import java.io.*;
 
 public class CreationManager {
 
-    private static Agence agence;
 
     public static void deserializeAgence() {
 
@@ -103,12 +102,12 @@ public class CreationManager {
 
         }
 
-        agence = ImmoESI;
+        Agence.setInstance(ImmoESI);
     }
 
     public static Proprietaire createProprietaire(String nom , String prenom , String adresseMail , String adresse , String numTelephone) {
 
-        Proprietaire p = agence.getProprietaire(nom+" "+prenom);
+        Proprietaire p = Agence.getInstance().getProprietaire(nom+" "+prenom);
 
         if(p==null) {
             System.out.println("NEW PROPRRRR");
@@ -132,7 +131,7 @@ public class CreationManager {
                 nbPieces, meuble, nbEtages, garage, piscine,
                 jardin, suph);
 
-        if(insertion) agence.insereBien(b);
+        if(insertion) Agence.getInstance().insereBien(b);
         return b;
     }
 
@@ -152,7 +151,7 @@ public class CreationManager {
                 negociable, trans, descriptif, date, photoURL,
                 nbPieces, meuble, etage, type, ascenseur);
 
-        if(insertion) agence.insereBien(b);
+        if(insertion) Agence.getInstance().insereBien(b);
         return b;
     }
 
@@ -173,12 +172,9 @@ public class CreationManager {
                 negociable, trans, descriptif, date, photoURL,
                 statutJurdique, nbFacades);
 
-        if(insertion) agence.insereBien(b);
+        if(insertion) Agence.getInstance().insereBien(b);
         return b;
     }
 
-    public static Agence getAgence() {
-        return agence;
-    }
 
 }
