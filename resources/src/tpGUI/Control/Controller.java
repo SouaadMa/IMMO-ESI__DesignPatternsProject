@@ -29,19 +29,17 @@ import java.util.Map;
 public class Controller {
 
 
-    private Agence agence = Agence.getInstance();
+    private ControllerState state = null;
+    private final Agence agence = Agence.getInstance();
     private Scene view;
     private PrincipalWindow fenetreprincipale;
-    private boolean accueil = false;
-    private boolean archive = false;
-    private boolean valider = false;
+
     private boolean admin=false;
     private boolean bool = false;
     private final String[] tab = {"Adresse", "Wilaya souhaitee", "Superficie", "Coordonnees d'un proprietaire", "Prix", "Type de transaction", "Date", "Le type du bien", "Nombre maximal des pieces"};
     private Map<Integer, Biens> ensembleBiens;
     private int i = 0;
     private boolean bool2=false;
-
 
     protected Button buttonRechercher = new Button();
     protected TextField field1 = new TextField("");
@@ -171,21 +169,23 @@ public class Controller {
         fenetreprincipale = stg;
     }
 
+    public void resetBigHbox() {
+        this.vbox.getChildren().clear();
+        this.sp = new ScrollPane(this.vbox);
+        this.bigHbox.getChildren().clear();
+        this.bigHbox=new HBox(this.buttonsVbox, this.sp, this.connexionButton);
+    }
+
     public void accueilClicked() {
 
         System.out.println("Accueil Clicked !");
+        if(this.state == null) this.setState(new AccueilClickedState());
+        else if(this.state.accueilClicked()==1) return;
 
-        if(!accueil) {
-
-            this.sp = new ScrollPane(this.vbox);
-            this.bigHbox.getChildren().clear();
-            this.bigHbox=new HBox(this.buttonsVbox, this.sp, this.connexionButton);
-
+            resetBigHbox();
 
             if(!NoyauFacade.getInstance().existeBiens()) {
-
                 MainPage.CustomErreur("La liste des biens est vide !");
-
             }
             else {
                 Iterator<Integer> it=agence.getBiens().keySet().iterator(); int i;
@@ -194,15 +194,11 @@ public class Controller {
                     i = it.next();
 
                     new InfoBiens(i, view, this.vbox);
-
                 }
-
             }
 
             fenetreprincipale.setScene(new Scene(bigHbox));
 
-            accueil = true; archive = false; valider = false;
-        }
     }
 
     public void updateButtons() {
@@ -247,6 +243,8 @@ public class Controller {
     @FXML
     public void rechercher(ActionEvent event) {
 
+        this.state = null;
+
         bigHbox.getChildren().clear();
 
         Pane p = new Pane();
@@ -255,7 +253,6 @@ public class Controller {
 
         p.setPrefSize(934, 732);
 
-        accueil = false;
         field1.clear();
         field2.clear();
         image.setFitHeight(732);
@@ -559,9 +556,6 @@ public class Controller {
         p.setPrefSize(934, 732);
 
 
-        accueil=false;
-
-
         image.setFitHeight(732);
         image.setFitWidth(1335);
         image.setLayoutX(0);
@@ -614,30 +608,21 @@ public class Controller {
 
 
     public void ajouterClicked() {
-        System.out.println("Ajouter Clicked !");
 
-
+        if(state.ajouterClicked()==1) return;
 
         AjoutBien stage = new AjoutBien(vbox);
 
-
-
         stage.show();
 
-        accueil = false; valider = false; archive = false;
     }
+
 
     public void optionsClicked() {
 
         System.out.println("options Clicked !");
-        if(!accueil) {
-            accueilClicked();
-        }
 
-
-
-        accueil = false; valider = false; archive = false;
-
+        if(state.optionsClicked()==1) return;
 
         Iterator<Node> it = vbox.getChildren().iterator();
 
@@ -662,9 +647,6 @@ public class Controller {
                 else new ModifTerrain(modif.getId(), vbox);
 
 
-                accueil=false;
-
-
             });
 
             Button archiv=new Button("Archiver");
@@ -674,7 +656,7 @@ public class Controller {
 
                 vbox.getChildren().clear();
                 NoyauFacade.getInstance().archivageBien(Integer.parseInt(archiv.getId()));
-                accueil=false;
+
                 accueilClicked();
                 optionsClicked();
             });
@@ -687,15 +669,15 @@ public class Controller {
 
                 vbox.getChildren().clear();
                 NoyauFacade.getInstance().suppressionBien(Integer.parseInt(supprim.getId()));
-                accueil=false;
+
                 accueilClicked();
                 optionsClicked();
+
             });
 
             VBox buttons = new VBox(modif, archiv, supprim);
 
             buttons.setPrefSize(120, 50);
-
 
             ((HBox)current).getChildren().add(buttons);
 
@@ -711,8 +693,8 @@ public class Controller {
     public void archiveClicked() {
         System.out.println("archive Clicked !");
 
+        if(state.archiveClicked()==1) return;
 
-        if(!archive) {
 
             vbox.getChildren().clear();
 
@@ -733,7 +715,7 @@ public class Controller {
 
                         vbox.getChildren().clear();
                         NoyauFacade.getInstance().desarchivageBien(Integer.parseInt(desarchiv.getId()));
-                        archive=false;
+
                         archiveClicked();
 
                     });
@@ -745,7 +727,7 @@ public class Controller {
 
                         vbox.getChildren().clear();
                         NoyauFacade.getInstance().suppressionBien(Integer.parseInt(desarchiv.getId()));
-                        archive=false;
+
                         archiveClicked();
                     });
 
@@ -759,8 +741,8 @@ public class Controller {
                 }
             }
 
-            accueil = false; archive = true; valider = false;
-        }
+
+
 
 
 
@@ -773,11 +755,7 @@ public class Controller {
 
         System.out.println("Valider clicked !");
 
-
-        accueil = false;
-        archive = false;
-
-        if(!valider) {
+        if(state.validerClicked()==1) return;
 
             vbox.getChildren().clear();
 
@@ -799,7 +777,6 @@ public class Controller {
 
                         vbox.getChildren().clear();
                         NoyauFacade.getInstance().validationBien(Agence.getInstance().getBien(Integer.parseInt(valid.getId())));
-                        valider=false;
                         validerClicked();
 
                     });
@@ -811,7 +788,6 @@ public class Controller {
 
                         vbox.getChildren().clear();
                         NoyauFacade.getInstance().suppressionBien(Integer.parseInt(supprim.getId()));
-                        valider=false;
                         validerClicked();
                     });
 
@@ -824,10 +800,6 @@ public class Controller {
                 }
             }
 
-            accueil = false; archive = false;
-        }
-
-
 
 
     }
@@ -837,7 +809,6 @@ public class Controller {
 
         System.out.println("Prop clicked !");
 
-        accueil = false;
 
         Iterator<Proprietaire> it= agence.getProprietaires().iterator(); Proprietaire p;
         vbox.getChildren().clear();
@@ -923,13 +894,7 @@ public class Controller {
 
     public void envoyerMessageClicked() {
 
-        if(!accueil) {
-            accueilClicked();
-        }
-
-
-
-        accueil = false; valider = false; archive = false;
+        if(state.envoyerMessageClicked()==1) return;
 
         Iterator<Node> it = vbox.getChildren().iterator();
         Node current; int i=1;
@@ -947,7 +912,6 @@ public class Controller {
 
                 new EnvoiMessage(NoyauFacade.getInstance().getMessagesBien(idBien));
 
-                accueil=false;
 
             });
 
@@ -963,12 +927,9 @@ public class Controller {
 
     public void afficheMessagesClicked() {
 
-        if (!accueil) {
-            accueilClicked();
-        }
-        accueil = false;
-        valider = false;
-        archive = false;
+        state.accueilClicked();
+
+        if(state.afficherMessagesClicked()==1) return;
 
         Iterator<Node> it = vbox.getChildren().iterator();
         Node current;
@@ -985,7 +946,6 @@ public class Controller {
                 int idBien = Integer.parseInt(envoi.getId());
                 new AfficheMessages(NoyauFacade.getInstance().getMessagesBien(idBien));
 
-                accueil = false;
 
             });
 
@@ -1036,6 +996,11 @@ public class Controller {
 
     public void setBool2(boolean bool2) {
         this.bool2 = bool2;
+    }
+
+    public void setState(ControllerState state) {
+        this.state = state;
+        this.state.setCtrl(this);
     }
 
 }
