@@ -19,7 +19,7 @@ import tpGUI.UI.*;
 
 public class ajouterCritereOuAfficherController {
 
-    private Set<Biens> ensembleBiens;
+    private Map<Integer, Biens> ensembleBiens;
     private AjouterCritereOuAfficher view;
 
 
@@ -33,21 +33,22 @@ public class ajouterCritereOuAfficherController {
     void AfficherLeResultatDeRecherche(ActionEvent event ) {
 
 
-        Iterator<Biens> it=ensembleBiens.iterator(); int i=1; Biens b;
+        Iterator<Map.Entry<Integer, Biens>> it=ensembleBiens.entrySet().iterator(); int i=1; Biens b;
 
         VBox vb = new VBox();
 
         Scene scene = new Scene(vb);
         Stage stage=new Stage();
 
+        /*
         while(it.hasNext())
         {
-            b = it.next();
+            b = it.next().getValue();
 
             stage = new InfoBiens(b, scene, vb);
             stage.setScene(scene);
 
-        }
+        }*/
 
         stage.show();
 
@@ -68,7 +69,7 @@ public class ajouterCritereOuAfficherController {
     }
 
 
-    public void setInfo(AjouterCritereOuAfficher stage, Set<Biens> ensembleBiens )
+    public void setInfo(AjouterCritereOuAfficher stage, Map<Integer, Biens> ensembleBiens )
     {
 
         this.ensembleBiens=ensembleBiens;

@@ -46,8 +46,8 @@ public class NonHabitable extends Biens {
 
 		ArrayList<Text> infos = super.visualiserInfosDetails();
 
-		infos.add(CreationMessage.creerMessage(this, 11));
-		infos.add(CreationMessage.creerMessage(this, 10));
+		infos.add(CreationMessage.creerMessage(id, 11));
+		infos.add(CreationMessage.creerMessage(id, 10));
 
 		return infos;
 	}

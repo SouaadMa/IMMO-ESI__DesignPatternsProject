@@ -22,20 +22,20 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import tpGUI.Control.NoyauFacade;
 import tpGUI.Noyau.*;
 import javafx.scene.control.ComboBox;
 
 public class ModifBien extends Stage implements CreationMessage {
-	
-	protected Agence model;
-	protected Biens theOne;
+
+
+	protected int theOne;
 	protected String cheminVersPhoto;
 
 	protected VBox newVBox;
@@ -59,10 +59,9 @@ public class ModifBien extends Stage implements CreationMessage {
 	protected String format = "dd/MM/yyyy";
 	protected SimpleDateFormat f = new SimpleDateFormat(format);
 
-	public ModifBien(Agence model, String id, VBox vb) {
+	public ModifBien(String id, VBox vb) {
 
-		this.model = model;
-		this.theOne = model.getBien(Integer.parseInt(id));
+		theOne = (Integer.parseInt(id));
 		
 		HBox bigHbx = new HBox(); /* Le plus grand Hbox qui contient tout (Old version + New Version)*/
 		
@@ -70,11 +69,11 @@ public class ModifBien extends Stage implements CreationMessage {
 
 
 
-		HBox titre = new HBox(new Label("Modification d'un bien de type: "+ theOne.recupererChamps(8)));
+		HBox titre = new HBox(new Label("Modification d'un bien de type: "+ NoyauFacade.getInstance().recupererChamps(theOne, 8)));
 		
 		newVBox = collecteModifications();
 		
-		Label bigMessage = new Label(theOne.visualiser());
+		Label bigMessage = new Label(NoyauFacade.getInstance().visualiserBien(theOne));
 		
 		
 		newVBox.setPadding(new Insets(20,20,20,20));
@@ -139,25 +138,25 @@ public class ModifBien extends Stage implements CreationMessage {
 		for(int i=0; i<48; i++) {
 			cb.getItems().add(i, Wilaya.getNom(i+1));
 		}
-		cb.setValue(Wilaya.getNom((int)theOne.recupererChamps(2)));
+		cb.setValue(Wilaya.getNom((int)NoyauFacade.getInstance().recupererChamps(theOne, 2)));
 
 		lignewilaya = new HBox(new Label("Wilaya: "), cb);
 		lignewilaya.setSpacing(81);
 
-		adr.setText((String)theOne.recupererChamps(1));
+		adr.setText((String)NoyauFacade.getInstance().recupererChamps(theOne, 1));
 		ligneadr = new HBox(new Label("Adresse : "), adr);
 		ligneadr.setSpacing(71);
 		
 
-		sup.setText(CreationMessage.fixDoubleDigits(((Double)theOne.recupererChamps(3))));
+		sup.setText(CreationMessage.fixDoubleDigits(((Double)NoyauFacade.getInstance().recupererChamps(theOne, 3))));
 		HBox lignesuperficie = new HBox(new Label("Superficie: "), sup);
 		lignesuperficie.setSpacing(65);
 
-		nom.setText(((Proprietaire)theOne.recupererChamps(4)).getNom());
+		nom.setText(((Proprietaire)NoyauFacade.getInstance().recupererChamps(theOne, 4)).getNom());
 
-		prenom.setText(((Proprietaire)theOne.recupererChamps(4)).getPrenom());
+		prenom.setText(((Proprietaire)NoyauFacade.getInstance().recupererChamps(theOne, 4)).getPrenom());
 
-		tel.setText(((Proprietaire)theOne.recupererChamps(4)).getTel());
+		tel.setText(((Proprietaire)NoyauFacade.getInstance().recupererChamps(theOne, 4)).getTel());
 		tel.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -167,9 +166,9 @@ public class ModifBien extends Stage implements CreationMessage {
 		    }
 		});
 
-		adre.setText(((Proprietaire)theOne.recupererChamps(4)).getAdresse());
+		adre.setText(((Proprietaire)NoyauFacade.getInstance().recupererChamps(theOne, 4)).getAdresse());
 
-		adrem.setText(((Proprietaire)theOne.recupererChamps(4)).getAdresseMail());
+		adrem.setText(((Proprietaire)NoyauFacade.getInstance().recupererChamps(theOne, 4)).getAdresseMail());
 		
 		
 		VBox titres = new VBox(new Label("Proprietaire: "),
@@ -188,9 +187,9 @@ public class ModifBien extends Stage implements CreationMessage {
 		
 
 
-		prix.setText(CreationMessage.fixDoubleDigits((Double)theOne.recupererChamps(5)));
+		prix.setText(CreationMessage.fixDoubleDigits((Double)NoyauFacade.getInstance().recupererChamps(theOne, 5)));
 
-		nego.setSelected((Boolean)theOne.recupererChamps(21));
+		nego.setSelected((Boolean)NoyauFacade.getInstance().recupererChamps(theOne, 21));
 		VBox prixnego = new VBox(prix, nego);
 		
 		HBox ligneprix = new HBox(new Label("Prix: "), prixnego);
@@ -205,7 +204,7 @@ public class ModifBien extends Stage implements CreationMessage {
 		rbLocation.setToggleGroup(tg2);
 		rbEchange.setToggleGroup(tg2);
 		
-		String tra = (String)theOne.recupererChamps(6);
+		String tra = (String)NoyauFacade.getInstance().recupererChamps(theOne, 6);
 		
 		if(tra.equals("ECHANGE")) {
 			tg2.selectToggle(rbEchange);
@@ -223,7 +222,7 @@ public class ModifBien extends Stage implements CreationMessage {
 
 		
 
-		des.setText((String)theOne.recupererChamps(22));
+		des.setText((String)NoyauFacade.getInstance().recupererChamps(theOne, 22));
 		HBox lignedescriptif = new HBox(new Label("Description: "), des);
 		lignedescriptif.setSpacing(50);
 		
@@ -234,7 +233,7 @@ public class ModifBien extends Stage implements CreationMessage {
 		
 		Button choisirPhoto = new Button("Choisir");
 		Label path = new Label();
-		cheminVersPhoto = ((String)theOne.recupererChamps(20));
+		cheminVersPhoto = ((String)NoyauFacade.getInstance().recupererChamps(theOne, 20));
 		
 		
 		choisirPhoto.setOnAction(new EventHandler<ActionEvent>() {
@@ -246,7 +245,7 @@ public class ModifBien extends Stage implements CreationMessage {
 		}
 				);
 		
-		path.setText((String)theOne.recupererChamps(20));
+		path.setText((String)NoyauFacade.getInstance().recupererChamps(theOne, 20));
 		HBox lignephotoURL = new HBox(new Label("Photo : "), path, choisirPhoto);
 
 
@@ -269,6 +268,8 @@ public class ModifBien extends Stage implements CreationMessage {
 
 	protected void step2(Button confirm) {
 	}
+
+
 
 
 }

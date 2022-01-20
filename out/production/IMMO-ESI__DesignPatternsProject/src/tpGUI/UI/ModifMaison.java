@@ -10,18 +10,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import tpGUI.Control.NoyauFacade;
 import tpGUI.Noyau.*;
 
 public class ModifMaison extends ModifBien{
-    public ModifMaison(Agence model, String id, VBox vb) {
-        super(model, id, vb);
+    public ModifMaison(String id, VBox vb) {
+        super(id, vb);
     }
 
     @Override
     protected void step2(Button confirm) {
 
         TextField nb1 = new TextField();
-        nb1.setText(((Integer)theOne.recupererChamps(11)).toString());
+        nb1.setText(((Integer) NoyauFacade.getInstance().recupererChamps(theOne, 11)).toString());
         HBox lignenbEtages = new HBox(new Label("Nombre d'étages: "), nb1);
         nb1.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -32,7 +33,7 @@ public class ModifMaison extends ModifBien{
         newVBox.getChildren().add(lignenbEtages);
 
         TextField nb2 = new TextField();
-        nb2.setText(((Integer)theOne.recupererChamps(9)).toString());
+        nb2.setText(((Integer)NoyauFacade.getInstance().recupererChamps(theOne, 9)).toString());
         HBox lignenbPiecesM = new HBox(new Label("Nombre de pieces: "), nb2);
         nb2.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -42,10 +43,10 @@ public class ModifMaison extends ModifBien{
 
         newVBox.getChildren().add(lignenbPiecesM);
 
-        CheckBox garage = new CheckBox("Garage"); garage.setSelected((Boolean)theOne.recupererChamps(12));
-        CheckBox piscine = new CheckBox("Piscine"); piscine.setSelected((Boolean)theOne.recupererChamps(13));
-        CheckBox jardin = new CheckBox("Jardin"); jardin.setSelected((Boolean)theOne.recupererChamps(14));
-        CheckBox meuble = new CheckBox("Meuble"); meuble.setSelected((Boolean)theOne.recupererChamps(10));
+        CheckBox garage = new CheckBox("Garage"); garage.setSelected((Boolean)NoyauFacade.getInstance().recupererChamps(theOne, 12));
+        CheckBox piscine = new CheckBox("Piscine"); piscine.setSelected((Boolean)NoyauFacade.getInstance().recupererChamps(theOne, 13));
+        CheckBox jardin = new CheckBox("Jardin"); jardin.setSelected((Boolean)NoyauFacade.getInstance().recupererChamps(theOne, 14));
+        CheckBox meuble = new CheckBox("Meuble"); meuble.setSelected((Boolean)NoyauFacade.getInstance().recupererChamps(theOne, 10));
 
         HBox ligneAvantages = new HBox(new Label("Autres details"), new VBox(garage, piscine, jardin, meuble));
 
@@ -53,7 +54,7 @@ public class ModifMaison extends ModifBien{
 
 
         TextField nb3 = new TextField();
-        nb3.setText(CreationMessage.fixDoubleDigits((Double)theOne.recupererChamps(15)));
+        nb3.setText(CreationMessage.fixDoubleDigits((Double)NoyauFacade.getInstance().recupererChamps(theOne, 15)));
         HBox lignesupHab = new HBox(new Label("Superficie habitable: "), nb3);
         //nb3.setTextFormatter(textFormattersuperficieh);
 
@@ -92,26 +93,32 @@ public class ModifMaison extends ModifBien{
                 ap.getChildren().add(vb);
                 vb.setAlignment(Pos.CENTER);
 
-                Button terminer=new Button("Terminer");
+                //Button terminer=new Button("Terminer");
 
 
                 Scene scene = new Scene(ap);
 
-                InfoBiens stage = new InfoBiens(bienModifie, scene,vb);
-                vb.getChildren().add(terminer);
+                NoyauFacade.getInstance().archivageBien(theOne);
+                theOne = NoyauFacade.getInstance().insertionBien(bienModifie);
+                NoyauFacade.getInstance().validationBien(bienModifie);
+
+                InfoBiens stage = new InfoBiens(theOne, scene,vb);
+
+/*                vb.getChildren().add(terminer);
                 vb.setAlignment(Pos.CENTER);
 
                 terminer.setPrefSize(180,90);
                 terminer.setFont(Font. font ("Verdana", 20));
                 terminer.setOnAction(actionEvent1 -> {
 
-                    model.archiverBiens(theOne);
-                    model.insereBien(bienModifie);
-                    model.valideBien(bienModifie);
+
+                    NoyauFacade.getInstance().archivageBien(theOne);
+                    NoyauFacade.getInstance().insertionBien(bienModifie);
+                    NoyauFacade.getInstance().validationBien(bienModifie);
                     stage.close();
 
                 });
-
+*/
 
                 stage.setScene(scene);
                 stage.show();

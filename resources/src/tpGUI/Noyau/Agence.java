@@ -8,20 +8,23 @@ import java.text.*;
 public class Agence implements Serializable
 {
 	private static Agence instance = null;
+	private static int id=0;
 
-	private Set<Biens> biens=new TreeSet<Biens>();
+	private Map<Integer, Biens> biens=new TreeMap<>();
 	private List<Proprietaire> proprietaires=new ArrayList<Proprietaire>();
 	private int nbProprietaires=0;
 
 
-	private Set<Biens> biensArchives=new TreeSet<Biens>();
-	private Set<Biens> biensAValider = new TreeSet<Biens>();
+	private Map<Integer, Biens> biensArchives=new TreeMap<>();
+	private Map<Integer, Biens> biensAValider = new TreeMap<>();
 	private int nbBiensAValider=0;
 
 	private Agence() {}
 
 	public static Agence getInstance() {
-		if(instance==null) instance = new Agence();
+		if(instance==null) {
+			instance = new Agence();
+		}
 		return instance;
 	}
 
@@ -35,41 +38,37 @@ public class Agence implements Serializable
 	}
 
 
-	public void insereBien(Biens b) {
-		biensAValider.add(b);
+	public int insereBien(Biens b) {
+		b.setId(Agence.id);
+		System.out.println( " inserer " + b.getId() );
+		biensAValider.put(Agence.id, b);
+		Agence.id ++;
+		return b.getId();
 	}
 
 
 	public void valideBien(Biens b) {
     	/*Suppression de la liste des biens à valider*/
-		getBiensAValider().remove(b);
-		getBiens().add(b); b.coordonnees.ajouterBiens(b);
+		getBiensAValider().remove(b.getId());
+		getBiens().put(b.getId(), b); b.coordonnees.ajouterBiens(b);
+		System.out.println( " valider " + b.getId() );
 		if(existeProprietaire(b.coordonnees)<0) proprietaires.add(b.coordonnees);
 	}
 
 
 	public Biens getBien(int i) {
-		Biens sauv=null; boolean found=false; int pos=1;
-		Iterator<Biens> it=getBiens().iterator();
-		if(i<=getBiens().size()) {
-			while(it.hasNext() && !found)
-			{
-				sauv = it.next();
-				if(!sauv.archive && !sauv.suppr) {
-					if(pos==i) found = true;
-					else pos++;
-				}
-			}
-		}
-		return sauv;
+		Biens b = getBiens().get(i);
+		if(b==null) return null;
+		if(!b.archive && !b.suppr) return b;
+		return null;
 	}
 
 
-	public void archiverBiens( Biens bien )
+	public void archiverBiens( int bien )
 	{
-		bien.archiver();
+		getBiens().get(bien).archiver();
 		getBiens().remove(bien);
-		biensArchives.add(bien);
+		biensArchives.put(bien, getBien(bien));
 	}
 
 	public Proprietaire getProprietaire (String nomprenom) {
@@ -87,18 +86,7 @@ public class Agence implements Serializable
 		return p;
 	}
 
-	public void afficherArchives() {
-		Iterator<Biens> it=biensArchives.iterator(); int i=1; Biens b;
-		while(it.hasNext())
-		{
-			b = it.next();
-			if(b.existe()) {
-				System.out.print(i+". ");
-				b.afficher();i++;
-				System.out.println();
-			}
-		}
-	}
+
 
 
 	public int getNbBiens() {
@@ -141,56 +129,29 @@ public class Agence implements Serializable
 	public void desarchiverBiens(Biens bien) {
 
 			bien.desarchiver();
-			biens.add(bien);
+			biens.put(id, bien);
 			biensArchives.remove(bien);
 
 	}
 
-	public Set<Biens> getBiens() {
+	public Map<Integer, Biens> getBiens() {
 		return biens;
 	}
 
-	public Set<Biens> getArchives() {
+	public Map<Integer, Biens> getArchives() {
 		return biensArchives;
 	}
 
 	public Biens getBienArchive(int i) {
-		Biens sauv=null; boolean found=false; int pos=1;
-		Iterator<Biens> it=getArchives().iterator();
-		if(i<=getArchives().size()) {
-			while(it.hasNext() && !found)
-			{
-				sauv = it.next();
-
-				if(pos==i) found = true;
-				else pos++;
-
-			}
-
-		}
-		return sauv;
+		return getArchives().get(i);
 	}
 
-	public Set<Biens> getBiensAValider() {
+	public Map<Integer, Biens> getBiensAValider() {
 		return biensAValider;
 	}
 
 	public Biens getBienAValider(int i) {
-		Biens sauv=null; boolean found=false; int pos=1;
-		Iterator<Biens> it=getBiensAValider().iterator();
-		if(i<=getBiensAValider().size()) {
-			while(it.hasNext() && !found)
-			{
-				sauv = it.next();
-
-				if(pos==i) found = true;
-				else pos++;
-
-			}
-
-		}
-		return sauv;
-
+		return getBiensAValider().get(i);
 	}
 
 	public List<Proprietaire> getProprietaires() {

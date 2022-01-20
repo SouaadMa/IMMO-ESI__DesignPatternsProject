@@ -6,14 +6,12 @@ import javafx.scene.text.Text;
 import tpGUI.UI.CreationMessage;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public abstract class Biens implements Comparable<Biens>, Serializable {
 	
-	
+	protected int id;
 	protected String adresse;
 	protected int wilaya;
 	protected double superficie;
@@ -26,7 +24,7 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 	protected String photoURL;
 	protected boolean archive;
 	protected boolean suppr;
-	protected ArrayList<String> tabMessages = new ArrayList<String>();
+	protected ArrayList<String> tabMessages = new ArrayList<>();
 	protected int nbMsgs=0;
 
 	public Biens() {}
@@ -62,13 +60,12 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 
 	public ArrayList<Text> visualiserInfos() {
 		ArrayList<Text> infos = new ArrayList<>();
-		infos.add(CreationMessage.creerMessage(this,22));
+		infos.add(CreationMessage.creerMessage(id,22));
 		return infos;
 	}
 
 	public ArrayList<Text> visualiserInfosDetails() {
-		ArrayList<Text> infos = new ArrayList<>();
-		return infos;
+		return new ArrayList<>();
 	}
 	
 	public double calculerPrix() {
@@ -101,13 +98,14 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 		
 		}
 		catch(Exception e)
-		{  }
+		{
+			e.printStackTrace();
+		}
 		return -i;
 	}
 	
 	public boolean equals(Biens P) {
-		if((P.coordonnees.equals(coordonnees)) && (this.adresse.equalsIgnoreCase(P.adresse)) && (wilaya==P.getWilaya())) return true;
-		else return false;
+		return (P.coordonnees.equals(coordonnees)) && (this.adresse.equalsIgnoreCase(P.adresse)) && (wilaya == P.getWilaya());
 	}
 	
 	public int getWilaya() {
@@ -129,8 +127,7 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 	public void ajouterMessage(String msg) {
 		tabMessages.add(msg);
 	}
-	
-	
+
 	public void afficherMessages() {
 		if(nbMsgs>0) System.out.println("Les messages de ce bien: ");
 		for(int i=0; i<nbMsgs; i++) {
@@ -230,6 +227,14 @@ public abstract class Biens implements Comparable<Biens>, Serializable {
 
 	public void setCoordonnees(Proprietaire coordonnees) {
 		this.coordonnees = coordonnees;
+	}
+
+	public void setId(int id) {
+		this.id = id; System.out.println(" set " + id);
+	}
+
+	public int getId() {
+		return this.id;
 	}
 
 	

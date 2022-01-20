@@ -8,26 +8,26 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
+import tpGUI.Control.NoyauFacade;
 import tpGUI.Noyau.*;
 
 public class ModifTerrain extends ModifBien{
-    public ModifTerrain(Agence model, String id, VBox vb) {
-        super(model, id, vb);
+    public ModifTerrain(String id, VBox vb) {
+        super(id, vb);
     }
 
     @Override
     protected void step2(Button confirm) {
 
         TextField statutJuridique = new TextField();
-        statutJuridique.setText((String)theOne.recupererChamps(10));
+        statutJuridique.setText((String) NoyauFacade.getInstance().recupererChamps(theOne, 10));
         HBox ligneStJu = new HBox(new Label("Statut juridique: "), statutJuridique);
         ligneStJu.setSpacing(40);
 
         newVBox.getChildren().add(ligneStJu);
 
         TextField nbFacades = new TextField();
-        nbFacades.setText(((Integer)theOne.recupererChamps(11)).toString());
+        nbFacades.setText(((Integer)NoyauFacade.getInstance().recupererChamps(theOne, 11)).toString());
         HBox ligneNbFacades = new HBox(new Label("Nombre de facades: "), nbFacades);
 
         ligneNbFacades.setSpacing(20);
@@ -73,26 +73,31 @@ public class ModifTerrain extends ModifBien{
                 vb.setId("GrilleAffichage");
                 ap.getChildren().add(vb);
 
-                Button terminer=new Button("Terminer");
+                //Button terminer=new Button("Terminer");
 
 
                 Scene scene = new Scene(ap);
 
-                InfoBiens stage = new InfoBiens(bienModifie, scene, vb);
-                vb.getChildren().add(terminer);
+                NoyauFacade.getInstance().archivageBien(theOne);
+                theOne = NoyauFacade.getInstance().insertionBien(bienModifie);
+                NoyauFacade.getInstance().validationBien(bienModifie);
+
+                InfoBiens stage = new InfoBiens(theOne, scene, vb);
+
+  /*              vb.getChildren().add(terminer);
                 vb.setAlignment(Pos.CENTER);
 
                 terminer.setPrefSize(100,70);
                 terminer.setFont(Font. font ("Verdana", 20));
                 terminer.setOnAction(actionEvent1 -> {
 
-                    model.archiverBiens(theOne);
-                    model.insereBien(bienModifie);
-                    model.valideBien(bienModifie);
+                    NoyauFacade.getInstance().archivageBien(theOne);
+                    NoyauFacade.getInstance().insertionBien(bienModifie);
+                    NoyauFacade.getInstance().validationBien(bienModifie);
                     stage.close();
 
                 });
-
+*/
 
                 stage.setScene(scene);
                 stage.show();

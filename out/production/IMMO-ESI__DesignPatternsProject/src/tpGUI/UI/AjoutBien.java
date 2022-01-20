@@ -422,7 +422,7 @@ public class AjoutBien extends Stage {
 					 
 					 Scene scene = new Scene(ap);
 					 
-					 InfoBiens stage = new InfoBiens(builderBiens.getNouveauBien(), scene, vb);
+					 InfoBiens stage = new InfoBiens(1, scene, vb);
 					 
 					 stage.setScene(scene);
 					 stage.show();
@@ -545,7 +545,7 @@ public class AjoutBien extends Stage {
 					 
 					 Scene scene = new Scene(ap);
 					 
-					 InfoBiens stage = new InfoBiens(nouveauBien, scene, vb);
+					 InfoBiens stage = new InfoBiens(1, scene, vb);
 					 
 					 stage.setScene(scene);
 					 stage.show();
@@ -634,7 +634,7 @@ public class AjoutBien extends Stage {
 					 
 					 Scene scene = new Scene(ap);
 					 
-					 InfoBiens stage = new InfoBiens(nouveauBien, scene, vb);
+					 InfoBiens stage = new InfoBiens(1, scene, vb);
 					 
 					 stage.setScene(scene);
 					 stage.show();

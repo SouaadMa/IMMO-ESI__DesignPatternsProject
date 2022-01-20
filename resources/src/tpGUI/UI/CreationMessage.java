@@ -3,11 +3,14 @@ package tpGUI.UI;
 import java.text.DecimalFormat;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import tpGUI.Control.NoyauFacade;
 import tpGUI.Noyau.*;
 
 public interface CreationMessage {
 
-	static Text creerMessage(Biens model, int i) {
+	static Text creerMessage(int idBiens, int i) {
+
+		Biens model = NoyauFacade.getInstance().getBienById(idBiens);
 		
 		String nonh = "NonHabitable";
 		Text etiquette ;

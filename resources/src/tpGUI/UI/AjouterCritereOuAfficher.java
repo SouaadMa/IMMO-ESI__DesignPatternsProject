@@ -1,12 +1,10 @@
 package tpGUI.UI;
 
 import javafx.fxml.FXMLLoader;
-import tpGUI.Control.Controller;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.*;
 
-import java.io.File;
 import java.net.URL;
 import java.util.*;
 
@@ -19,7 +17,7 @@ public class AjouterCritereOuAfficher extends Stage  {
 
     RechercherController rechercherController;
 
-    public AjouterCritereOuAfficher(RechercherController rechercherController, Set<Biens> ensembleBiens )
+    public AjouterCritereOuAfficher(RechercherController rechercherController, Map<Integer, Biens> ensembleBiens )
     {
 
         this.setTitle("recherche avec succes");
@@ -63,7 +61,7 @@ public class AjouterCritereOuAfficher extends Stage  {
         rechercherController.quitAndReturn();
     }
 
-    public void setEnsembleBiens(Set<Biens> ensemble) {
+    public void setEnsembleBiens(Map<Integer, Biens> ensemble) {
         rechercherController.setEnsembleBiens(ensemble);
     }
 

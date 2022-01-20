@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import tpGUI.Noyau.*;
+import tpGUI.Control.NoyauFacade;
 
 import javafx.scene.image.*;
 
@@ -22,14 +22,17 @@ import java.io.FileInputStream;
 
 public class InfoBiens extends Stage implements CreationMessage {
 	
-	private Biens model;
+	//private Biens model;
 	private HBox resultHBox;
+	private int idBiens;
+	private NoyauFacade facade = NoyauFacade.getInstance();
 	
 	
-	public InfoBiens(Biens model, Scene scene, VBox ctrl) {
+	public InfoBiens(int i, Scene scene, VBox ctrl) {
 		
-		this.model = model;
-		
+		//this.model = model;
+		this.idBiens = i;
+
 		this.setTitle("Information du bien");    
 		this.setResizable(false); 
 		this.setScene(scene);
@@ -61,8 +64,8 @@ public class InfoBiens extends Stage implements CreationMessage {
 		ImageView imgv1=new ImageView();
 		
 		try {
-			image = new Image(new FileInputStream( (String)model.recupererChamps(20))); 
-			System.out.println((String) model.recupererChamps(20));
+			image = new Image(new FileInputStream( (String) facade.recupererChamps(idBiens, 20)));
+			System.out.println((String) facade.recupererChamps(idBiens, 20));
 		}
 		catch (Exception e) {
 			
@@ -88,10 +91,10 @@ public class InfoBiens extends Stage implements CreationMessage {
 		
 		hbx.getStyleClass().add("BUENEO");
 
-		hbx.getChildren().add(CreationMessage.creerMessage(model, 0));
-		hbx.getChildren().add(CreationMessage.creerMessage(model, 1));
-		hbx.getChildren().add(CreationMessage.creerMessage(model, 5));
-		hbx.getChildren().add(CreationMessage.creerMessage(model, 7));
+		hbx.getChildren().add(CreationMessage.creerMessage(idBiens, 0));
+		hbx.getChildren().add(CreationMessage.creerMessage(idBiens, 1));
+		hbx.getChildren().add(CreationMessage.creerMessage(idBiens, 5));
+		hbx.getChildren().add(CreationMessage.creerMessage(idBiens, 7));
 		
 		eP.setCollapsedContent(hbx); 
 		hbx.setPadding(new Insets(20,20,20,20));    
@@ -106,23 +109,23 @@ public class InfoBiens extends Stage implements CreationMessage {
 		VBox vbx3 = new VBox();
 
 		
-		for(int i=3; i<5; i++)	vbx1.getChildren().add(CreationMessage.creerMessage(model, i));
-		vbx1.getChildren().add(CreationMessage.creerMessage(model, 55));
+		for(int i=3; i<5; i++)	vbx1.getChildren().add(CreationMessage.creerMessage(idBiens, i));
+		vbx1.getChildren().add(CreationMessage.creerMessage(idBiens, 55));
 		Label l;
-		if((Boolean)model.recupererChamps(21)) l=new Label("Negociable");
+		if((Boolean)facade.recupererChamps(idBiens, 21)) l=new Label("Negociable");
 		else l = new Label("Pas negociable");
 		 l.setAlignment(Pos. BASELINE_LEFT );     
 		 l.setFont(Font. font ("Berlin Sans FB", 18));     
 		 l.setLineSpacing(40); 
 		 vbx1.getChildren().add(l);
-		vbx1.getChildren().add(CreationMessage.creerMessage(model, 6));
+		vbx1.getChildren().add(CreationMessage.creerMessage(idBiens, 6));
 		
 		vbx1.setPrefWidth(400);
 
-		for(Text info : model.visualiserInfos()) {
+		for(Text info : facade.visualiserInfos(idBiens)) {
 			vbx2.getChildren().add(info);
 		}
-		for(Text detail : model.visualiserInfosDetails()) {
+		for(Text detail : facade.visualiserInfosDetails(idBiens)) {
 			vbx3.getChildren().add(detail);
 		}
 
@@ -152,7 +155,9 @@ public class InfoBiens extends Stage implements CreationMessage {
 		parent.setPadding(new Insets(20,20,20,20));    
 		parent.setAlignment(Pos.CENTER_LEFT ); 
 		parent.setSpacing(15);
-		
+
+		bigHbx.setId(String.valueOf(idBiens));
+		System.out.println("Infos bien de id " + bigHbx.getId());
 		(parent).getChildren().add(bigHbx);
 		return bigHbx;
 		

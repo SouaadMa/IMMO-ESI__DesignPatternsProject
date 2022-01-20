@@ -23,14 +23,13 @@ import java.io.*;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.Map;
 
 
 public class Controller {
 
 
-
-    private Agence agence;
+    private Agence agence = Agence.getInstance();
     private Scene view;
     private PrincipalWindow fenetreprincipale;
     private boolean accueil = false;
@@ -39,7 +38,7 @@ public class Controller {
     private boolean admin=false;
     private boolean bool = false;
     private final String[] tab = {"Adresse", "Wilaya souhaitee", "Superficie", "Coordonnees d'un proprietaire", "Prix", "Type de transaction", "Date", "Le type du bien", "Nombre maximal des pieces"};
-    private Set<Biens> ensembleBiens;
+    private Map<Integer, Biens> ensembleBiens;
     private int i = 0;
     private boolean bool2=false;
 
@@ -144,26 +143,26 @@ public class Controller {
     @FXML
     protected HBox bigHbox = new HBox();
 
-
+/*
     public void setInfo(Agence agenc) {
 
         this.ensembleBiens = agenc.getBiens();
         agence = agenc;
 
     }
-
-    public void setEnsembleBiens(Set<Biens> ensembleBien) {
+*/
+    public void setEnsembleBiens(Map<Integer, Biens> ensembleBien) {
 
         this.ensembleBiens = ensembleBien;
 
     }
-
+/*
     public void resetEnsembleBiens() {
 
         this.ensembleBiens = agence.getBiens();
 
     }
-
+*/
     public Scene getView() {
         return view;
     }
@@ -183,18 +182,18 @@ public class Controller {
             this.bigHbox=new HBox(this.buttonsVbox, this.sp, this.connexionButton);
 
 
-            if(agence.getBiens().isEmpty()) {
+            if(!NoyauFacade.getInstance().existeBiens()) {
 
                 MainPage.CustomErreur("La liste des biens est vide !");
 
             }
             else {
-                Iterator<Biens> it=agence.getBiens().iterator(); Biens b;
+                Iterator<Integer> it=agence.getBiens().keySet().iterator(); int i;
                 while(it.hasNext())
                 {
-                    b = it.next();
+                    i = it.next();
 
-                    new InfoBiens(b, view, this.vbox);
+                    new InfoBiens(i, view, this.vbox);
 
                 }
 
@@ -647,19 +646,20 @@ public class Controller {
         while(it.hasNext()) {
             current = it.next();
             Button modif=new Button("Modifier");
-            modif.setId(((Integer)i).toString());
+            modif.setId(current.getId());
+            System.out.println("Modif button de id " + modif.getId());
             modif.getStyleClass().add("buttons");
             modif.setOnAction(actionEvent -> {
 
                 vbox.getChildren().clear();
 
-                if((agence.getBien(Integer.parseInt(modif.getId())).recupererChamps(8)).equals("Maison")) {
-                    new ModifMaison(agence, modif.getId(), vbox);
+                if(NoyauFacade.getInstance().recupererChamps(Integer.parseInt(modif.getId()), 8).equals("Maison")) {
+                    new ModifMaison(modif.getId(), vbox);
                 }
-                else if((agence.getBien(Integer.parseInt(modif.getId())).recupererChamps(8)).equals("Appartement")) {
-                    new ModifAppartement(agence, modif.getId(), vbox);
+                else if(NoyauFacade.getInstance().recupererChamps(Integer.parseInt(modif.getId()), 8).equals("Appartement")) {
+                    new ModifAppartement(modif.getId(), vbox);
                 }
-                else new ModifTerrain(agence, modif.getId(), vbox);
+                else new ModifTerrain(modif.getId(), vbox);
 
 
                 accueil=false;
@@ -668,12 +668,12 @@ public class Controller {
             });
 
             Button archiv=new Button("Archiver");
-            archiv.setId(((Integer)i).toString());
+            archiv.setId(current.getId());
             archiv.getStyleClass().add("buttons");
             archiv.setOnAction(actionEvent -> {
 
                 vbox.getChildren().clear();
-                agence.archiverBiens(agence.getBien(Integer.parseInt(archiv.getId())));
+                NoyauFacade.getInstance().archivageBien(Integer.parseInt(archiv.getId()));
                 accueil=false;
                 accueilClicked();
                 optionsClicked();
@@ -686,7 +686,7 @@ public class Controller {
             supprim.setOnAction(actionEvent -> {
 
                 vbox.getChildren().clear();
-                agence.supprimerBiens(agence.getBien(Integer.parseInt(supprim.getId())));
+                NoyauFacade.getInstance().suppressionBien(Integer.parseInt(supprim.getId()));
                 accueil=false;
                 accueilClicked();
                 optionsClicked();
@@ -714,18 +714,17 @@ public class Controller {
 
         if(!archive) {
 
-
             vbox.getChildren().clear();
 
-            if(agence.getArchives().isEmpty()) MainPage.CustomErreur("La liste des archives est vide !");
+            if(!NoyauFacade.getInstance().existeBiensArchives()) MainPage.CustomErreur("La liste des archives est vide !");
             else {
-                Iterator<Biens> it=agence.getArchives().iterator(); Biens b; int i=1;
+                //Iterator<Biens> it=agence.getArchives().iterator(); Biens b;
+                int i=0;
 
-                while(it.hasNext())
+                while(i<Agence.getInstance().getArchives().size())
                 {
-                    b = it.next();
 
-                    InfoBiens stage = new InfoBiens(b, view, vbox);
+                    InfoBiens stage = new InfoBiens((Integer)agence.getArchives().keySet().toArray()[i], view, vbox);
 
                     Button desarchiv=new Button("Desarchiver");
                     desarchiv.setId(((Integer)i).toString());
@@ -733,7 +732,7 @@ public class Controller {
                     desarchiv.setOnAction(actionEvent -> {
 
                         vbox.getChildren().clear();
-                        agence.desarchiverBiens(agence.getBienArchive(Integer.parseInt(desarchiv.getId())));
+                        NoyauFacade.getInstance().desarchivageBien(Integer.parseInt(desarchiv.getId()));
                         archive=false;
                         archiveClicked();
 
@@ -745,7 +744,7 @@ public class Controller {
                     supprim.setOnAction(actionEvent -> {
 
                         vbox.getChildren().clear();
-                        agence.supprimerBiens(agence.getBienArchive(Integer.parseInt(supprim.getId())));
+                        NoyauFacade.getInstance().suppressionBien(Integer.parseInt(desarchiv.getId()));
                         archive=false;
                         archiveClicked();
                     });
@@ -780,19 +779,18 @@ public class Controller {
 
         if(!valider) {
 
-
             vbox.getChildren().clear();
 
-            if(agence.getBiensAValider().isEmpty()) MainPage.CustomErreur("La liste des biens � valider est vide !");
+            if(NoyauFacade.getInstance().existeBiensAValider()) MainPage.CustomErreur("La liste des biens a valider est vide !");
             else {
 
-                Iterator<Biens> it=agence.getBiensAValider().iterator(); Biens b; int i=1;
+                Iterator<Integer> it=agence.getBiensAValider().keySet().iterator(); int i;
 
                 while(it.hasNext())
                 {
-                    b = it.next();
+                    i = it.next();
 
-                    InfoBiens stage = new InfoBiens(b, view, vbox);
+                    InfoBiens stage = new InfoBiens(i, view, vbox);
 
                     Button valid=new Button("Valider");
                     valid.setId(((Integer)i).toString());
@@ -800,7 +798,7 @@ public class Controller {
                     valid.setOnAction(actionEvent -> {
 
                         vbox.getChildren().clear();
-                        agence.valideBien(agence.getBienAValider(Integer.parseInt(valid.getId())));
+                        NoyauFacade.getInstance().validationBien(Agence.getInstance().getBien(Integer.parseInt(valid.getId())));
                         valider=false;
                         validerClicked();
 
@@ -812,7 +810,7 @@ public class Controller {
                     supprim.setOnAction(actionEvent -> {
 
                         vbox.getChildren().clear();
-                        agence.getBiensAValider().remove(agence.getBienAValider(Integer.parseInt(supprim.getId())));
+                        NoyauFacade.getInstance().suppressionBien(Integer.parseInt(supprim.getId()));
                         valider=false;
                         validerClicked();
                     });
@@ -823,7 +821,6 @@ public class Controller {
                     stage.getResultHbox().getChildren().add(buttons);
 
 
-                    i++;
                 }
             }
 
@@ -867,7 +864,7 @@ public class Controller {
 
 
 
-                Iterator<Biens> it1 = agence.getProprietaires().get(Integer.parseInt(affichebiens.getId())).getPossesions().iterator();
+                /*Iterator<Integer> it1 = agence.getProprietaires().get(Integer.parseInt(affichebiens.getId())).getPossesions().iterator();
                 Biens b;
 
 
@@ -879,7 +876,7 @@ public class Controller {
 
                     if(!it1.hasNext()) stage1.show();
 
-                }
+                }*/
 
 
 
@@ -948,7 +945,7 @@ public class Controller {
 
                 int idBien = Integer.parseInt(envoi.getId());
 
-                new EnvoiMessage(agence.getBien(idBien).getMessages());
+                new EnvoiMessage(NoyauFacade.getInstance().getMessagesBien(idBien));
 
                 accueil=false;
 
@@ -986,7 +983,7 @@ public class Controller {
             envoi.setOnAction(actionEvent -> {
 
                 int idBien = Integer.parseInt(envoi.getId());
-                new AfficheMessages(agence.getBien(idBien).getMessages());
+                new AfficheMessages(NoyauFacade.getInstance().getMessagesBien(idBien));
 
                 accueil = false;
 
@@ -1027,10 +1024,6 @@ public class Controller {
     public String getDatePicker()
     {
         return datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    }
-
-    public void setAgence(Agence agence) {
-        this.agence = agence;
     }
 
     public void setView(Scene view) {

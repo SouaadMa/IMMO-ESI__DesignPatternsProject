@@ -5,9 +5,17 @@ import java.util.Map;
 
 public class PriceManager {
 
+    private static PriceManager instance = null;
+
     private static Map<Double, Map<Double, Double>> seuilsVente = initVente();
     private static Map<Double, Map<Double, Double>> seuilsEchange = seuilsVente;
     private static Map<Double, Map<Double, Double>> seuilsLocation = initLocation();
+
+    private PriceManager() {}
+    public static PriceManager getInstance() {
+        if(instance==null)  instance = new PriceManager();
+        return instance;
+    }
 
     static Map<Double, Map<Double, Double>> initVente() {
 

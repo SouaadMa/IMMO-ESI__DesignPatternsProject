@@ -3,9 +3,6 @@ package tpGUI.Control;
 import javafx.event.ActionEvent;
 import javafx.event.*;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Control;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import tpGUI.Noyau.*;
 import tpGUI.UI.*;
 
@@ -17,7 +14,7 @@ public class RechercherController   implements  EventHandler<ActionEvent> {
     private Controller principalController;
 
     private int i;
-    private Set<Biens> ensembleBiens;
+    private Map<Integer, Biens> ensembleBiens;
     private Object valeur1 = null, valeur2 = null;
 
     //private String[] criteres={ "adresse","wilaya souhaitee","superficie" , " coordonnees d'un proprietaire","prix" ,"type de transaction"  ,"date", "le type du bien" , "nombre maximal des pi�ces" };
@@ -25,68 +22,68 @@ public class RechercherController   implements  EventHandler<ActionEvent> {
 
     private int[] numCriteres={1,2,3,4,5,6,7,8,9};
 
-    public RechercherController(Controller view, int i, Set<Biens> ensembleBiens) {
+    public RechercherController(Controller view, int i, Map<Integer, Biens> ensembleBiens) {
         this.i = i;
         this.principalController = view;
         this.ensembleBiens = ensembleBiens;
 
     }
 
-    private Set<Biens> remplirEnsembleBiens(int i , Set<Biens> ensembleBiens, Object valeur1 , Object valeur2) {
+    private Map<Integer, Biens> remplirEnsembleBiens(int i , Map<Integer, Biens> ensembleBiens, Object valeur1 , Object valeur2) {
 
-        Biens bien;
+        Map.Entry<Integer, Biens> bien;
 
         //System.out.println(ensembleBiens);
 
-        Iterator<Biens> it=ensembleBiens.iterator();
+        Iterator<Map.Entry<Integer, Biens>> it=ensembleBiens.entrySet().iterator();
 
-        Set<Biens> temp=new TreeSet<Biens>();
+        Map<Integer, Biens> temp=new TreeMap<>();
 
         while(it.hasNext())
         {
             bien=it.next();
 
-            Object valeur=bien.recupererChamps(i);
+            Object valeur=bien.getValue().recupererChamps(i);
 
 
             switch(i)
             {
 
                 case 1:
-                    if(((String)valeur1).equalsIgnoreCase((String)valeur)) temp.add(bien);
+                    if(((String)valeur1).equalsIgnoreCase((String)valeur)) temp.put(bien.getKey(), bien.getValue());
                     break;
                 case 2:
                     int numWilaya= Wilaya.getNumWilaya((String) valeur1);
-                    if(((Integer)numWilaya).equals((int)valeur)) temp.add(bien);
+                    if(((Integer)numWilaya).equals((int)valeur)) temp.put(bien.getKey(), bien.getValue());
                     break;
                 case 3:
                     double superficieMin=Double.parseDouble((String)valeur1);
                     double superficieMax=Double.parseDouble((String)valeur2);
 
-                    if(((double)valeur)>=(superficieMin) && ((double)valeur)<=(superficieMax)) temp.add(bien);
+                    if(((double)valeur)>=(superficieMin) && ((double)valeur)<=(superficieMax)) temp.put(bien.getKey(), bien.getValue());
                     break;
                 case 4:
-                    if(((String)valeur1).equalsIgnoreCase(((Proprietaire)valeur).getNom())&& ((String)valeur2).equalsIgnoreCase(((Proprietaire)valeur).getPrenom())) temp.add(bien);
+                    if(((String)valeur1).equalsIgnoreCase(((Proprietaire)valeur).getNom())&& ((String)valeur2).equalsIgnoreCase(((Proprietaire)valeur).getPrenom())) temp.put(bien.getKey(), bien.getValue());
                     break;
                 case 5:
                     double prixMin=Double.parseDouble((String)valeur1);
                     double prixMax=Double.parseDouble((String)valeur2);
-                    if(((double)valeur)>=prixMin && ((double)valeur)<=prixMax )temp.add(bien);
+                    if(((double)valeur)>=prixMin && ((double)valeur)<=prixMax )temp.put(bien.getKey(), bien.getValue());
                     break;
                 case 6:
-                    if(((String)valeur1).equalsIgnoreCase((String)valeur)) temp.add(bien);
+                    if(((String)valeur1).equalsIgnoreCase((String)valeur)) temp.put(bien.getKey(), bien.getValue());
                     break;
                 case 7:
-                    if(((String)valeur1).equalsIgnoreCase((String)valeur)) temp.add(bien);
+                    if(((String)valeur1).equalsIgnoreCase((String)valeur)) temp.put(bien.getKey(), bien.getValue());
                     break;
                 case 8:
-                    if(((String)valeur1).equalsIgnoreCase((String)valeur)) temp.add(bien);
+                    if(((String)valeur1).equalsIgnoreCase((String)valeur)) temp.put(bien.getKey(), bien.getValue());
                     break;
                 case 9:
-                    String typeBien=((String)bien.recupererChamps(8));
+                    String typeBien=((String)bien.getValue().recupererChamps(8));
                     if(!(typeBien.equalsIgnoreCase("Terrain")))
                     {int nbPieces=Integer.parseInt((String) valeur1);
-                        if((nbPieces)>=(int)valeur) temp.add(bien);}
+                        if((nbPieces)>=(int)valeur) temp.put(bien.getKey(), bien.getValue());}
                     break;
             }
 
@@ -98,7 +95,7 @@ public class RechercherController   implements  EventHandler<ActionEvent> {
     }
 
 
-    public   Set<Biens>  filtrer(int i, Set<Biens> ensembleBiens , Object valeur1 ,Object  valeur2) throws Exception
+    public Map<Integer, Biens>  filtrer(int i, Map<Integer, Biens> ensembleBiens , Object valeur1 ,Object  valeur2) throws Exception
     {
 
         i=numCriteres[i-1];
@@ -212,7 +209,7 @@ public class RechercherController   implements  EventHandler<ActionEvent> {
         principalController.accueilClicked();
     }
 
-    public void setEnsembleBiens(Set<Biens> ensemble) {
+    public void setEnsembleBiens(Map<Integer, Biens> ensemble) {
         principalController.setEnsembleBiens(ensemble);
     }
 
@@ -220,7 +217,7 @@ public class RechercherController   implements  EventHandler<ActionEvent> {
         principalController.setBool2(b);
     }
 
-    public Set<Biens> getBiens()
+    public Map<Integer, Biens> getBiens()
     {
         return ensembleBiens;
     }

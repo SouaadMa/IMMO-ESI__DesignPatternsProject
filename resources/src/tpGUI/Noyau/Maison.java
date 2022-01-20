@@ -51,9 +51,9 @@ public class Maison extends Habitable{
 
 		ArrayList<Text> infos = super.visualiserInfos();
 
-		infos.add(CreationMessage.creerMessage(this, 9));
-		infos.add(CreationMessage.creerMessage(this, 11));
-		infos.add(CreationMessage.creerMessage(this, 15));
+		infos.add(CreationMessage.creerMessage(id, 9));
+		infos.add(CreationMessage.creerMessage(id, 11));
+		infos.add(CreationMessage.creerMessage(id, 15));
 
 
 		return infos;
@@ -63,10 +63,10 @@ public class Maison extends Habitable{
 
 		ArrayList<Text> infos = super.visualiserInfosDetails();
 
-		if((Boolean)recupererChamps(10)) infos.add(CreationMessage.creerMessage(this, 10));
-		if((Boolean)recupererChamps(12)) infos.add(CreationMessage.creerMessage(this, 12));
-		if((Boolean)recupererChamps(13)) infos.add(CreationMessage.creerMessage(this, 13));
-		if((Boolean)recupererChamps(14)) infos.add(CreationMessage.creerMessage(this, 14));
+		if((Boolean)recupererChamps(10)) infos.add(CreationMessage.creerMessage(id, 10));
+		if((Boolean)recupererChamps(12)) infos.add(CreationMessage.creerMessage(id, 12));
+		if((Boolean)recupererChamps(13)) infos.add(CreationMessage.creerMessage(id, 13));
+		if((Boolean)recupererChamps(14)) infos.add(CreationMessage.creerMessage(id, 14));
 
 
 		return infos;

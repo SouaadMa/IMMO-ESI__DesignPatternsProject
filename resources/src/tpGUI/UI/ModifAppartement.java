@@ -7,18 +7,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import tpGUI.Control.NoyauFacade;
 import tpGUI.Noyau.*;
 
 public class ModifAppartement extends ModifBien{
 
-    public ModifAppartement(Agence model, String id, VBox vb) {
-        super(model, id, vb);
+    public ModifAppartement(String id, VBox vb) {
+        super(id, vb);
     }
 
     @Override
     protected void step2(Button confirm) {
         TextField nbPiecesTextField = new TextField();
-        nbPiecesTextField.setText(((Integer)theOne.recupererChamps(9)).toString());
+        nbPiecesTextField.setText(((Integer)NoyauFacade.getInstance().recupererChamps(theOne, 9)).toString());
         HBox lignenbPiecesA = new HBox(new Label("Nombre de pieces: "), nbPiecesTextField);
         nbPiecesTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -29,7 +30,7 @@ public class ModifAppartement extends ModifBien{
         newVBox.getChildren().add(lignenbPiecesA);
 
         TextField numEtage = new TextField();
-        numEtage.setText(((Integer)theOne.recupererChamps(11)).toString());
+        numEtage.setText(((Integer)NoyauFacade.getInstance().recupererChamps(theOne, 11)).toString());
         HBox lignenumEtage = new HBox(new Label("Numero d'etage: "), numEtage);
         numEtage.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -47,7 +48,7 @@ public class ModifAppartement extends ModifBien{
         rbSimplexe.setToggleGroup(tgX);
         rbDuplexe.setToggleGroup(tgX);
 
-        if(theOne.recupererChamps(12)==Xplexe.DUPLEXE) {
+        if(NoyauFacade.getInstance().recupererChamps(theOne, 12)==Xplexe.DUPLEXE) {
             tgX.selectToggle(rbDuplexe);
         }
         else tgX.selectToggle(rbSimplexe);
@@ -57,9 +58,9 @@ public class ModifAppartement extends ModifBien{
         newVBox.getChildren().add(tX);
 
         CheckBox ascenseur = new CheckBox("Ascenseur");
-        ascenseur.setSelected((Boolean)theOne.recupererChamps(13));
+        ascenseur.setSelected((Boolean)NoyauFacade.getInstance().recupererChamps(theOne, 13));
         CheckBox meubleA = new CheckBox("Meuble");
-        meubleA.setSelected((Boolean)theOne.recupererChamps(10));
+        meubleA.setSelected((Boolean)NoyauFacade.getInstance().recupererChamps(theOne, 10));
 
         newVBox.getChildren().add(ascenseur); newVBox.getChildren().add(meubleA);
 
@@ -106,25 +107,29 @@ public class ModifAppartement extends ModifBien{
                 vb.setAlignment(Pos.CENTER);
                 ap.getChildren().add(vb);
 
-                Button terminer=new Button("Terminer");
-
+                //Button terminer=new Button("Terminer");
 
                 Scene scene = new Scene(ap);
 
-                InfoBiens stage = new InfoBiens(bienModifie, scene, vb);
-                vb.getChildren().add(terminer);
+                NoyauFacade.getInstance().archivageBien(theOne);
+                theOne = NoyauFacade.getInstance().insertionBien(bienModifie);
+                NoyauFacade.getInstance().validationBien(bienModifie);
+
+                InfoBiens stage = new InfoBiens(theOne, scene, vb);
+
+                /*vb.getChildren().add(terminer);
                 vb.setAlignment(Pos.CENTER);
 
                 terminer.setPrefSize(180,90);
                 terminer.setFont(Font. font ("Verdana", 20));
                 terminer.setOnAction(actionEvent1 -> {
 
-                    model.archiverBiens(theOne);
-                    model.insereBien(bienModifie);
-                    model.valideBien(bienModifie);
+                    NoyauFacade.getInstance().archivageBien(theOne);
+                    NoyauFacade.getInstance().insertionBien(bienModifie);
+                    NoyauFacade.getInstance().validationBien(bienModifie);
                     stage.close();
 
-                });
+                });*/
 
                 stage.setScene(scene);
                 stage.show();

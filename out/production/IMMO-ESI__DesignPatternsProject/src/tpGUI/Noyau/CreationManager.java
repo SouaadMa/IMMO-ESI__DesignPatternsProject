@@ -9,7 +9,7 @@ public class CreationManager {
 
         Agence ImmoESI = null;
         ObjectInputStream in ;
-
+/*
         try {
 
             File sauvtextfile = new File("resources/Sauvegarde.txt");
@@ -35,7 +35,7 @@ public class CreationManager {
         }
         catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         if(ImmoESI == null) {
 
@@ -54,55 +54,63 @@ public class CreationManager {
                      false, TypeTrans.VENTE, "descrip 1", "31/12/2019",
                      "resources/img/appa1.jpg",
                      4, false, 1, Xplexe.DUPLEXE, false);
+                     ImmoESI.insereBien(Bien1);
                      ImmoESI.valideBien(Bien1);
 
                      Biens Bien2 = new Maison ("adr 2", 3, 200, Prop1, 10000000,
                      false, TypeTrans.VENTE, "descrip 2", "02/12/2019",
                      "resources/img/mais1.jpg",
                      2, false, 1, false, false, true, 120);
+                     ImmoESI.insereBien(Bien2);
                      ImmoESI.valideBien(Bien2);
 
                      Biens Bien3 = new NonHabitable("adr 3", 1, 500, Prop1, 20000000,
                      false, TypeTrans.VENTE, "descrip 3", "10/11/2019",
                      "resources/img/terrain1.jpg",
                      "statut juridique 3", 3);
+                     ImmoESI.insereBien(Bien3);
                      ImmoESI.valideBien(Bien3);
 
                      Biens Bien4 = new Appartement ("adr 4", 3, 100, Prop2, 40000,
                      false, TypeTrans.LOCATION, "descrip 4", "01/11/2019",
                      "resources/img/appa2.jpg",
                      3, false, 1, Xplexe.DUPLEXE, false);
+                     ImmoESI.insereBien(Bien4);
                      ImmoESI.valideBien(Bien4);
 
                      Biens Bien5 = new Maison ("adr 5", 2, 160, Prop3, 150000,
                      false, TypeTrans.LOCATION, "descrip 5", "01/09/2019",
                      "resources/img/mais2.jpg",
                      3, true, 1, false, true, false, 120);
+                     ImmoESI.insereBien(Bien5);
                      ImmoESI.valideBien(Bien5);
 
                      Biens Bien6 = new Appartement ("adr 6", 3, 50, Prop2, 600000,
                      false, TypeTrans.LOCATION, "descrip 6", "02/08/2019",
                      "resources/img/appa3.jpg",
                      1, true, 6, Xplexe.SIMPLEXE, false);
+                     ImmoESI.insereBien(Bien6);
                      ImmoESI.valideBien(Bien6);
 
                      Biens Bien7 = new NonHabitable ("adr 7", 1, 650, Prop1, 18000000,
                      false, TypeTrans.ECHANGE, "descrip 7", "13/07/2019",
                      "resources/img/terrain2.jpg",
                      "Statut Juridique 7", 1);
+                     ImmoESI.insereBien(Bien7);
                      ImmoESI.valideBien(Bien7);
 
                      Biens Bien8 = new Maison ("adr 8", 2, 200, Prop2, 14000000,
                      true, TypeTrans.ECHANGE, "descrip 8", "12/12/2018",
                      "resources/img/mais3.jpg",
                      3, true, 1, true, false, false, 120);
+                     ImmoESI.insereBien(Bien8);
                      ImmoESI.valideBien(Bien8);
 
 
 
         }
 
-        Agence.setInstance(ImmoESI);
+        //Agence.setInstance(ImmoESI);
     }
 
     public static Proprietaire createProprietaire(String nom , String prenom , String adresseMail , String adresse , String numTelephone) {

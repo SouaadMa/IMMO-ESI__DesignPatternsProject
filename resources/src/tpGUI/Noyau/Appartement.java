@@ -46,9 +46,9 @@ public class Appartement extends Habitable
 
 		ArrayList<Text> infos = super.visualiserInfos();
 
-		infos.add(CreationMessage.creerMessage(this, 9));
-		infos.add(CreationMessage.creerMessage(this, 11));
-		infos.add(CreationMessage.creerMessage(this, 12));
+		infos.add(CreationMessage.creerMessage(id, 9));
+		infos.add(CreationMessage.creerMessage(id, 11));
+		infos.add(CreationMessage.creerMessage(id, 12));
 
 
 		return infos;
@@ -58,8 +58,8 @@ public class Appartement extends Habitable
 
 		ArrayList<Text> infos = super.visualiserInfosDetails();
 
-		infos.add(CreationMessage.creerMessage(this, 10));
-		infos.add(CreationMessage.creerMessage(this, 13));
+		infos.add(CreationMessage.creerMessage(id, 10));
+		infos.add(CreationMessage.creerMessage(id, 13));
 
 		return infos;
 	}
