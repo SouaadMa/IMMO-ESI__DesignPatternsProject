@@ -759,7 +759,7 @@ public class Controller {
 
             vbox.getChildren().clear();
 
-            if(NoyauFacade.getInstance().existeBiensAValider()) MainPage.CustomErreur("La liste des biens a valider est vide !");
+            if(!NoyauFacade.getInstance().existeBiensAValider()) MainPage.CustomErreur("La liste des biens a valider est vide !");
             else {
 
                 Iterator<Integer> it=agence.getBiensAValider().keySet().iterator(); int i;
@@ -893,7 +893,7 @@ public class Controller {
 
 
     public void envoyerMessageClicked() {
-        
+
         if(state.envoyerMessageClicked()==1) return;
 
         Iterator<Node> it = vbox.getChildren().iterator();
@@ -911,7 +911,6 @@ public class Controller {
                 int idBien = Integer.parseInt(envoi.getId());
 
                 new EnvoiMessage(NoyauFacade.getInstance().getMessagesBien(idBien));
-
 
             });
 

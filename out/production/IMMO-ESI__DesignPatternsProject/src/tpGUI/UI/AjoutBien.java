@@ -405,7 +405,7 @@ public class AjoutBien extends Stage {
 					 ((BuilderMaison) builderBiens).setGaragePiscineJardin(garage.isSelected(), piscine.isSelected(), jardin.isSelected());
 					 ((BuilderMaison) builderBiens).setSuperfHabitable(Double.parseDouble(nb3.getText()));
 
-					 builderBiens.saveNouveauBien();
+					 int id = builderBiens.saveNouveauBien();
 
 					 /*Biens nouveauBien = CreationManager.createMaison(adr.getText(), Wilaya.getNumWilaya(cb.getValue()), Double.parseDouble(sup.getText()), p, Double.parseDouble(prix.getText()),
 							 nego.isSelected(), trans, des.getText(), f.format(date), cheminVersPhoto,
@@ -422,7 +422,7 @@ public class AjoutBien extends Stage {
 					 
 					 Scene scene = new Scene(ap);
 					 
-					 InfoBiens stage = new InfoBiens(1, scene, vb);
+					 InfoBiens stage = new InfoBiens(id, scene, vb);
 					 
 					 stage.setScene(scene);
 					 stage.show();
@@ -529,10 +529,10 @@ public class AjoutBien extends Stage {
 					 
 					 Proprietaire p = CreationManager.createProprietaire(nom.getText() , prenom.getText() , adrem.getText() , adre.getText() , tel.getText());
 
-					 Biens nouveauBien = CreationManager.createAppartement(adr.getText(), Wilaya.getNumWilaya(cb.getValue()), Double.parseDouble(sup.getText()), p, Double.parseDouble(prix.getText()),
-							 nego.isSelected(), trans, des.getText(), f.format(date), cheminVersPhoto,
-							 Integer.parseInt(nbPiecesTextField.getText()), meubleA.isSelected(), Integer.parseInt(numEtage.getText()), xp,
-							 ascenseur.isSelected(), true);
+						 Biens nouveauBien = CreationManager.createAppartement(adr.getText(), Wilaya.getNumWilaya(cb.getValue()), Double.parseDouble(sup.getText()), p, Double.parseDouble(prix.getText()),
+								 nego.isSelected(), trans, des.getText(), f.format(date), cheminVersPhoto,
+								 Integer.parseInt(nbPiecesTextField.getText()), meubleA.isSelected(), Integer.parseInt(numEtage.getText()), xp,
+								 ascenseur.isSelected(), true);
 
 					 System.out.println(cb.getValue());
 

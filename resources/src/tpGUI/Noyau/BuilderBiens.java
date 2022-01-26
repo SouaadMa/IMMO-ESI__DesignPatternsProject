@@ -37,8 +37,8 @@ public abstract class BuilderBiens {
 
     public abstract void setPhotoURL(String url) ;
 
-    public void saveNouveauBien() {
-        Agence.getInstance().insereBien(nouveauproduit);
+    public int saveNouveauBien() {
+        return Agence.getInstance().insereBien(nouveauproduit);
     }
 
     public Biens getNouveauBien() {

@@ -20,15 +20,23 @@ public class NoyauFacade {
     public boolean existeBiensArchives() {
         return !Agence.getInstance().getArchives().isEmpty();
     }
+
     public boolean existeBiens() {
         return !Agence.getInstance().getBiens().isEmpty();
     }
+
     public boolean existeBiensAValider() {
         return !Agence.getInstance().getBiensAValider().isEmpty();
     }
 
     public Biens getBienById(int id) {
-        return Agence.getInstance().getBien(id);
+
+        Biens b = Agence.getInstance().getBien(id);
+        if(b != null) return b;
+        b = Agence.getInstance().getBienAValider(id);
+        if(b != null) return b;
+        b = Agence.getInstance().getBienArchive(id);
+        return b;
     }
 
     public Object recupererChamps(int idBiens, int ichamps) {
@@ -50,8 +58,12 @@ public class NoyauFacade {
     public ArrayList<String> getMessagesBien(int idBiens) {return getBienById(idBiens).getMessages();}
 
     public void archivageBien(int idBiens) { Agence.getInstance().archiverBiens(idBiens); }
+
     public int insertionBien(Biens idBiens) { return Agence.getInstance().insereBien(idBiens); }
+
     public void validationBien(Biens idBiens) { Agence.getInstance().valideBien(idBiens); }
+
     public void suppressionBien(int idBiens) { Agence.getInstance().supprimerBiens(Agence.getInstance().getBien(idBiens)); }
+
     public void desarchivageBien(int idBiens) { Agence.getInstance().archiverBiens(idBiens); }
 }
